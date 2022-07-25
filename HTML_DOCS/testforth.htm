@@ -1,0 +1,951 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>New Page 1</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="expeditn 001, default"><meta name="Microsoft Border" content="tlb, default"></head>
+
+<body background="_themes/expeditn/exptextb.jpg" bgcolor="#FFFFFF" text="#000000" link="#006600" vlink="#669966" alink="#990000"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<h1>_Zen_Soft Forth Interpreter</h1>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<p>&nbsp;</p>
+<!--mstheme--></font></td><td valign="top" width="24"></td><!--msnavigation--><td valign="top"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<dl>
+  <dd>Test Program for reference --- <a href="testoutput.htm">(Test output page)</a> </dd>
+  <dd>&nbsp;</dd>
+  <dd>&quot; 0) test . &quot; printstring cr<br>
+    1 . 2 . 3 . cr<br>
+    <br>
+    &quot; 1) test + and dup &quot; printstring cr<br>
+    21245 dup . 7194 dup . + . cr<br>
+    <br>
+    &quot; 2) test - &quot; printstring cr<br>
+    11111 dup . 22222 dup . - . cr<br>
+    <br>
+    <br>
+    : goog if 222 111 + else 777 111 - then . ;<br>
+    <br>
+    : soog if 123 456 + . then ;<br>
+    <br>
+    ' soog decompile<br>
+    .s cr<br>
+    <br>
+    &quot; 3) test ( : ; if else then )&quot; printstring cr<br>
+    0 soog<br>
+    1 soog<br>
+    0 goog<br>
+    1 goog<br>
+    <br>
+    : tst-depth depth if &quot; Unclean stack &quot; else &quot; OK &quot; then printstring cr
+    ;<br>
+    <br>
+    .s cr<br>
+    <br>
+    &quot; 4) This is a test string&quot; cr printstring cr<br>
+    <br>
+    22 22 22 + + . cr<br>
+    <br>
+    : moog &quot; this is another test string &quot; ;<br>
+    <br>
+    moog printstring cr<br>
+    <br>
+    &quot; 5) test begin until &quot; printstring cr<br>
+    : hoog 1 begin 1 + dup 10 &gt; until &quot; the output was &quot; printstring . ; <br>
+    <br>
+    hoog cr<br>
+    &quot; 6) test constant &quot; printstring cr<br>
+    2 constant noog <br>
+    noog . cr<br>
+    &quot; 7) test rot &quot; printstring<br>
+    1 dup . 2 dup . 3 dup . rot . . . cr<br>
+    &quot; 8) test multiply &quot; printstring<br>
+    1111 dup . 2 dup . * . cr<br>
+    &quot; 9) test divide &quot; printstring<br>
+    10000 dup . 100 dup . / . cr<br>
+    <br>
+    &quot; 10) test variable &quot; printstring<br>
+    777 variable roog cr<br>
+    <br>
+    &quot; test @ &quot; printstring<br>
+    roog @ . cr<br>
+    <br>
+    &quot; test ! &quot; printstring<br>
+    888 roog ! <br>
+    roog @ . cr<br>
+    <br>
+    tst-depth<br>
+    <br>
+    &quot; 11) test +! &quot; printstring<br>
+    111 roog +! roog @ . cr<br>
+    <br>
+    &quot; 12) test max &quot; printstring<br>
+    1000 dup . 2000 dup . max . cr<br>
+    &quot; 13) test min &quot; printstring<br>
+    1000 dup . 2000 dup . min . cr<br>
+    &quot; 14) test == &quot; printstring<br>
+    1000 dup . 2000 dup . == . cr<br>
+    &quot; 15) test &lt;&gt; &quot; printstring<br>
+    1000 dup . 2000 dup . &lt;&gt; . cr<br>
+    &quot; 16) test &gt; &quot; printstring<br>
+    1000 dup . 2000 dup . &gt; . cr<br>
+    &quot; 17) test &gt;= &quot; printstring<br>
+    1000 dup . 2000 dup . &gt;= . cr<br>
+    &quot; 18) test 0= &quot; printstring<br>
+    2000 dup . 0= . cr<br>
+    <br>
+    tst-depth<br>
+    <br>
+    &quot; 19) compile testtrue &quot; printstring cr<br>
+    <br>
+    : testtrue 0= <br>
+    if &quot; false &quot; printstring cr <br>
+    else &quot; true &quot; printstring cr <br>
+    then ; <br>
+    cr<br>
+    &quot; 20) test negate &quot; printstring <br>
+    25 negate cr<br>
+    roog ! <br>
+    <br>
+    tst-depth<br>
+    <br>
+    &quot; 21) test == &quot; printstring cr<br>
+    24 negate dup . roog @ dup . == testtrue<br>
+    tst-depth<br>
+    <br>
+    <br>
+    &quot; 22) test &lt; &quot; printstring cr<br>
+    24 negate dup . roog @ dup . &lt; testtrue <br>
+    tst-depth<br>
+    <br>
+    <br>
+    &quot; 23) test str= &quot; printstring cr<br>
+    <br>
+    : tests1 &quot; The rain in Spain &quot; ;<br>
+    : tests2 &quot; The same in Maine &quot; ;<br>
+    : tests3 &quot; aaa&quot; ;<br>
+    <br>
+    tst-depth<br>
+    tests1 printstring cr<br>
+    tests2 printstring cr<br>
+    tst-depth<br>
+    <br>
+    tests1 tests2 str= printstring cr<br>
+    tests1 printstring <br>
+    tests2 printstring cr<br>
+    tst-depth<br>
+    <br>
+    &quot; 24) test substr &quot; printstring cr <br>
+    tests1 printstring <br>
+    tests3 tests1 4 7 substr printstring cr<br>
+    tests3 printstring cr<br>
+    <br>
+    tst-depth<br>
+    <br>
+    &quot; 25) test str+ &quot; printstring cr<br>
+    : test4 &quot; again &quot; ; <br>
+    tests1 test4 str+ printstring cr<br>
+    <br>
+    -23 . cr<br>
+    <br>
+    &quot; 26) test do .. loop &quot; printstring cr<br>
+    <br>
+    : testloop 0 10 0 do 1 + dup . loop . ;<br>
+    .s<br>
+    <br>
+    testloop cr<br>
+    <br>
+    <br>
+    &quot; 27) test string &quot; printstring cr<br>
+    &quot; Above the town there was a grey wall &quot; string townwall<br>
+    townwall printstring cr <br>
+    <br>
+    .s<br>
+    ' townwall decompile<br>
+    .s<br>
+    tst-depth<br>
+    <br>
+    &quot; 28) test newchar &quot; printstring cr<br>
+    <br>
+    &quot; HOOT&quot; string hoot<br>
+    <br>
+    &quot; GOOT&quot; string goot<br>
+    <br>
+    0 constant NULL<br>
+    <br>
+    tst-depth .s cr<br>
+    <br>
+    11 char[]: bufptr <br>
+    <br>
+    .s cr<br>
+    0 variable ccnt<br>
+    : ruel begin <br>
+    55 ccnt @ bufptr + c! 1 ccnt +! ccnt @ 9 &gt; <br>
+    until <br>
+    bufptr ccnt @ + 0 swap c! <br>
+    ;<br>
+    ruel<br>
+    <br>
+    .s cr<br>
+    bufptr dup char[]_len type cr<br>
+    <br>
+    .s<br>
+    <br>
+    : tst_cstr c&quot; a string &quot; ;<br>
+    <br>
+    tst_cstr count type cr<br>
+    .s<br>
+    <br>
+    1 2 3 4 2swap . . . . cr <br>
+    1 2 3 4 2over . . . . . . cr <br>
+    <br>
+    char a constant na<br>
+    <br>
+    : hoove 26 0 do i na + emit<br>
+    i 10 &gt; if [char] . emit then <br>
+    loop <br>
+    cr &quot; foo&quot; printstring <br>
+    s&quot; one &quot; type cr <br>
+    c&quot; two &quot; count type ; immediate<br>
+    <br>
+    : foove 1 begin 1+ dup 20 &lt; while [char] 221 emit repeat drop cr ; immediate<br>
+    <br>
+    : droove 0 1 2 3<br>
+    begin dup<br>
+    case <br>
+    1 of s&quot; three&quot; type cr endof<br>
+    2 of s&quot; four&quot; type cr endof<br>
+    drop<br>
+    endcase<br>
+    while <br>
+    repeat ; immediate<br>
+    <br>
+    ' droove decompile<br>
+    <br>
+    hoove<br>
+    foove<br>
+    droove<br>
+    <br>
+    : nhoove hoove foove ;<br>
+    <br>
+    <br>
+    &quot; **) test formated output&quot; printstring cr<br>
+    hex<br>
+    <br>
+    FFA02 &lt;# # # #s #&gt; type cr<br>
+    <br>
+    decimal<br>
+    <br>
+    : cc c&quot; 123&quot; ; cr<br>
+    cc 6 + c@ emit cr<br>
+    <br>
+    &quot; 29) test str&gt;cstr &quot; printstring cr<br>
+    goot bufptr str&gt;cstr <br>
+    bufptr count type cr<br>
+    <br>
+    tst-depth<br>
+    <br>
+    &quot; 30) test delchar &quot; printstring cr<br>
+    <br>
+    bufptr delchar[] .<br>
+    <br>
+    tst-depth<br>
+    <br>
+    &quot; 31) &gt;&gt;&gt; Test structure defining words &quot; printstring cr<br>
+    <br>
+    structure: SmallStruct<br>
+    25 +char Small_name<br>
+    +long Small_long<br>
+    structure;<br>
+    <br>
+    structure: LargeStruct<br>
+    25 +char Large_name<br>
+    +long Large_long<br>
+    +short Large_short<br>
+    2 +long[] Large_both<br>
+    3 SmallStruct +object[] Large_small<br>
+    structure;<br>
+    <br>
+    cr cr<br>
+    &quot; 32) print struct size &quot; printstring cr<br>
+    LargeStruct . cr<br>
+    <br>
+    &quot; 33) &gt;&gt;&gt; Test create instance of structure &quot; printstring cr<br>
+    <br>
+    LargeStruct new-structure variable AddrLarge<br>
+    <br>
+    &quot; 34) Address of new instance &quot; printstring cr<br>
+    AddrLarge @ . cr<br>
+    <br>
+    &quot; 35) Address Large_long (+25) &quot; printstring cr<br>
+    AddrLarge @ Large_long dup . AddrLarge @ - . cr <br>
+    <br>
+    &quot; 36) Address Large_short (29) &quot; printstring cr<br>
+    AddrLarge @ Large_short dup . AddrLarge @ - . cr<br>
+    <br>
+    &quot; 37) Address Large_both[0] (31) &quot; printstring cr<br>
+    AddrLarge @ 0 Large_both dup . AddrLarge @ - . cr<br>
+    <br>
+    &quot; 38) Address Large_both[1] (35) &quot; printstring cr<br>
+    AddrLarge @ 1 Large_both dup . AddrLarge @ - . cr<br>
+    <br>
+    &quot; 39) Address Large_small[0] (39) &quot; printstring cr<br>
+    AddrLarge @ 0 Large_small dup . AddrLarge @ - . cr<br>
+    <br>
+    &quot; 40) Address Large_small 1 Small_long &quot; printstring 39 SmallStruct + 25 + . cr<br>
+    AddrLarge @ 1 Large_small Small_long dup . AddrLarge @ - . cr<br>
+    <br>
+    &quot; 41) put 1000 in *AddrLarge.Large_small[1].Small_long &quot; printstring cr<br>
+    1000 AddrLarge @ 1 Large_small Small_long !<br>
+    <br>
+    &quot; 42) get the long back &quot; printstring cr<br>
+    AddrLarge @ 1 Large_small Small_long @ . cr<br>
+    <br>
+    tst-depth<br>
+    <br>
+    : groog 10 0 do i . loop cr ;<br>
+    &quot; i test &quot; printstring cr<br>
+    <br>
+    groog<br>
+    <br>
+    <br>
+    &quot; 43) Test +loop &quot; printstring cr<br>
+    <br>
+    : nooot 20 0 do i . 2 +loop cr ;<br>
+    <br>
+    : rooot do i . 2 +loop cr ;<br>
+    <br>
+    nooot<br>
+    20 0 rooot<br>
+    <br>
+    &quot; 44) Test ?do &quot; printstring cr<br>
+    <br>
+    : erool ?do i . 2 +loop cr ;<br>
+    <br>
+    .s<br>
+    <br>
+    10 0 erool<br>
+    <br>
+    // ' erool decompile<br>
+    <br>
+    6 6 erool<br>
+    <br>
+    2 5 7 .s drop drop drop cr .s cr<br>
+    <br>
+    // ' erool decompile<br>
+    <br>
+    .s<br>
+    <br>
+    &quot; 45) test i i &quot; printstring cr<br>
+    <br>
+    : juuoool nop <br>
+    10 0 <br>
+    do <br>
+    &quot; nxn:&quot; printstring <br>
+    i i * . cr <br>
+    loop <br>
+    ;<br>
+    <br>
+    ' juuoool decompile <br>
+    <br>
+    juuoool cr<br>
+    <br>
+    .s<br>
+    <br>
+    &quot; 46) test i with j &quot; printstring cr<br>
+    <br>
+    : drool 5 0 do <br>
+    5 0 do <br>
+    i j * . <br>
+    loop cr <br>
+    loop cr <br>
+    ;<br>
+    <br>
+    drool<br>
+    <br>
+    .s<br>
+    <br>
+    &quot; 47) i inside loop and if &quot; printstring cr <br>
+    <br>
+    : xzoool 5 0 do<br>
+    i dup . 4 == <br>
+    if <br>
+    i . <br>
+    then <br>
+    loop cr <br>
+    ;<br>
+    <br>
+    .s<br>
+    <br>
+    xzoool<br>
+    <br>
+    .s<br>
+    <br>
+    <br>
+    &quot; 48) test leave &quot; printstring cr<br>
+    <br>
+    : iiiool 10 0 <br>
+    do <br>
+    i dup . 7 == <br>
+    if <br>
+    i . <br>
+    leave <br>
+    then <br>
+    loop <br>
+    cr <br>
+    ;<br>
+    <br>
+    .s <br>
+    <br>
+    ' iiiool decompile cr<br>
+    <br>
+    .s<br>
+    <br>
+    iiiool <br>
+    <br>
+    .s<br>
+    <br>
+    &quot; 49) test case &quot; printstring cr<br>
+    <br>
+    : casetest 10 0 do i dup . <br>
+    case <br>
+    1 of i 10 + . endof<br>
+    2 of i 10 + . endof<br>
+    3 of i 10 + . endof<br>
+    20 + . <br>
+    endcase cr<br>
+    loop ;<br>
+    <br>
+    casetest<br>
+    <br>
+    &quot; 50) test begin while repeat &quot; printstring cr<br>
+    <br>
+    : tbwr <br>
+    begin 3 + dup . <br>
+    dup 20 &lt; dup .<br>
+    while dup 10 + . cr<br>
+    repeat . cr ;<br>
+    <br>
+    3 tbwr<br>
+    <br>
+    ' tbwr decompile<br>
+    <br>
+    <br>
+    &quot; 51) test immediate and literal &quot; printstring cr<br>
+    traceon<br>
+    : timm 2 ; immediate<br>
+    <br>
+    : tlit timm literal 2 * . cr ;<br>
+    <br>
+    tlit<br>
+    traceoff<br>
+    traceon<br>
+    : gt8 state @ ; immediate <br>
+    gt8 . cr<br>
+    traceoff<br>
+    traceon<br>
+    : gt9 gt8 literal ;<br>
+    gt9 . cr<br>
+    traceoff<br>
+    <br>
+    <br>
+    ' tlit is-in-voc cr<br>
+    <br>
+    vocabulary roof immediate<br>
+    <br>
+    roof definitions<br>
+    <br>
+    : peak 2 2 + . cr ;<br>
+    <br>
+    ' peak is-in-voc cr<br>
+    <br>
+    peak<br>
+    <br>
+    forth definitions<br>
+    <br>
+    tlit <br>
+    <br>
+    // release roof<br>
+    <br>
+    // ' peak . cr<br>
+    <br>
+    .s cr<br>
+    <br>
+    : test-s&quot; s&quot; foobar&quot; type cr ;<br>
+    <br>
+    test-s&quot; cr<br>
+    <br>
+    1 1 rshift . cr<br>
+    2 1 rshift . cr<br>
+    0 1 rshift . cr<br>
+    2 1 lshift . cr<br>
+    <br>
+    0 invert . cr<br>
+    <br>
+    traceon<br>
+    : km 2 . ; source type cr<br>
+    traceoff<br>
+    <br>
+    create testcre 14 allot ;create<br>
+    <br>
+    ' testcre decompile cr<br>
+    <br>
+    : mcre create 100 allot does&gt; 10 + ;<br>
+    <br>
+    ' mcre decompile cr<br>
+    <br>
+    ' mcre . cr<br>
+    .s<br>
+    <br>
+    mcre fmcre<br>
+    <br>
+    .s<br>
+    <br>
+    ' fmcre decompile cr<br>
+    <br>
+    .s<br>
+    <br>
+    fmcre . cr<br>
+    <br>
+    .s<br>
+    <br>
+    &quot; 53) test exit &quot; printstring cr<br>
+    <br>
+    : testex begin 20 0 do 10 0 do j dup . 7 == if exit then loop cr loop again ;<br>
+    <br>
+    testex cr<br>
+    <br>
+    &quot; 54) test [ ] and literal &quot; printstring cr<br>
+    <br>
+    : testbb [ 17 2 * ] literal . cr ;<br>
+    <br>
+    ' testbb decompile cr<br>
+    <br>
+    testbb <br>
+    <br>
+    : testR 2 &gt;r r@ . r&gt; . cr ;<br>
+    <br>
+    testR<br>
+    <br>
+    &quot; 55) test roll &quot; printstring cr<br>
+    1 2 3 4 3 roll .s drop drop drop drop .s<br>
+    <br>
+    &quot; 56) test unloop exit &quot; printstring cr<br>
+    <br>
+    : testule 10 0 do i . 10 0 do i dup . 5 == if unloop unloop exit then loop cr loop ;<br>
+    <br>
+    testule<br>
+    <br>
+    ' testule decompile<br>
+    <br>
+    &quot; 57) test recurse &quot; printstring cr<br>
+    <br>
+    : testrec 1+ dup 4 &lt; if recurse else . then ;<br>
+    <br>
+    0 testrec<br>
+    <br>
+    ' testrec decompile <br>
+    <br>
+    <br>
+    &quot; 58) test f/ fsin fcos facos fasin &quot; printstring cr<br>
+    <br>
+    : testfa 1 d&gt;f fdup f. cr<br>
+    10 d&gt;f fdup f. cr<br>
+    f/ fdup f. cr<br>
+    fsin fdup f. cr<br>
+    fcos fdup f. cr<br>
+    facos fdup f. cr<br>
+    fasin f. cr ;<br>
+    <br>
+    testfa <br>
+    <br>
+    &quot; 59) test small class &quot; printstring cr<br>
+    <br>
+    traceon<br>
+    <br>
+    class: goomb<br>
+    <br>
+    traceoff<br>
+    <br>
+    &quot; 60) started class definition &quot; printstring cr<br>
+    <br>
+    traceon<br>
+    <br>
+    [dword] anw<br>
+    <br>
+    traceoff<br>
+    <br>
+    &quot; 61) added 1st [dword] object &quot; printstring cr<br>
+    <br>
+    <br>
+    [dword] bnw<br>
+    [dword] cnw<br>
+    <br>
+    traceon<br>
+    public:<br>
+    traceoff<br>
+    [dword] anw2<br>
+    [dword] bnw2<br>
+    [dword] cnw2<br>
+    <br>
+    traceon<br>
+    m: Anw@ anw @ m;<br>
+    traceoff<br>
+    <br>
+    <br>
+    &quot; 62) added 1st method &quot; printstring cr<br>
+    <br>
+    m: Anw! anw ! m;<br>
+    m: Bnw@ bnw @ m;<br>
+    m: Bnw! bnw ! m;<br>
+    m: Cnw@ cnw @ m;<br>
+    m: Cnw! cnw ! m;<br>
+    <br>
+    traceon<br>
+    m: SumAB 1 Anw! 1 Bnw! Anw@ Bnw@ + dup . Cnw! Cnw@ . cr m;<br>
+    traceoff<br>
+    <br>
+    traceon<br>
+    class;<br>
+    traceoff<br>
+    <br>
+    traceon<br>
+    goomb pulah<br>
+    traceoff<br>
+    <br>
+    traceon <br>
+    pulah -: SumAB<br>
+    traceoff<br>
+    <br>
+    &quot; 63) test (decompile)-class &quot; printstring cr<br>
+    <br>
+    (decompile)-class goomb <br>
+    <br>
+    &quot; 64) test use of class in defined method &quot; printstring cr<br>
+    <br>
+    traceon<br>
+    : umber pulah -: SumAB ;<br>
+    traceoff<br>
+    <br>
+    umber<br>
+    <br>
+    &quot; 65) test use of class in class &quot; printstring cr<br>
+    <br>
+    traceon<br>
+    class: goomb2<br>
+    <br>
+    [dword] mule<br>
+    [class] goomb truel<br>
+    <br>
+    public:<br>
+    [dword] mule2<br>
+    [class] goomb truel2<br>
+    <br>
+    m: Intrule 2 truel -: Anw! 2 truel -: Bnw! 1 mule ! m;<br>
+    m: Usetruel truel -: Anw@ truel -: Bnw@ mule @ + + . &quot; result of goomb2
+    Usetrue1&quot; printstring cr m;<br>
+    <br>
+    m: Intrule2 2 truel2 -: anw2 ! 2 truel2 -: bnw2 ! 1 mule2 ! m;<br>
+    m: Usetruel2 truel2 -: anw2 @ truel2 -: bnw2 @ mule2 @ + + . &quot; result of goomb2
+    Usetrue12&quot; printstring cr m;<br>
+    <br>
+    class;<br>
+    traceoff<br>
+    <br>
+    goomb2 pulah2<br>
+    <br>
+    traceon<br>
+    pulah2 -: Intrule<br>
+    pulah2 -: Usetruel<br>
+    traceoff<br>
+    <br>
+    traceon<br>
+    pulah2 -: Intrule2<br>
+    pulah2 -: Usetruel2<br>
+    traceoff<br>
+    <br>
+    &quot; 66) test use of class in class &quot; printstring cr<br>
+    <br>
+    : floom pulah2 -: Intrule pulah2 -: Usetruel ;<br>
+    <br>
+    floom<br>
+    <br>
+    &quot; 67) test class inheritance&quot; printstring cr<br>
+    <br>
+    traceon<br>
+    class: hoomw public: := goomb<br>
+    private:<br>
+    <br>
+    [dword] Adw<br>
+    [class] goomb acl<br>
+    <br>
+    public:<br>
+    <br>
+    <br>
+    m: tcn1 5 hoomw::goomb -: Anw! <br>
+    5 hoomw::goomb -: Bnw! <br>
+    5 hoomw::goomb -: Cnw! <br>
+    m; <br>
+    <br>
+    m: tcn2 hoomw::goomb -: Anw@ <br>
+    hoomw::goomb -: Bnw@ <br>
+    hoomw::goomb -: Cnw@ <br>
+    + + . cr <br>
+    m; <br>
+    <br>
+    m: tcn3 6 Anw! <br>
+    6 Bnw! <br>
+    6 Cnw! <br>
+    m; <br>
+    <br>
+    m: tcn4 7 Anw! <br>
+    7 Bnw! <br>
+    7 Cnw! <br>
+    m; <br>
+    <br>
+    class;<br>
+    traceoff<br>
+    <br>
+    hoomw apngo <br>
+    <br>
+    &quot; 68) test class access to inherited class using -: &quot; printstring cr<br>
+    apngo -: tcn1 apngo -: tcn2<br>
+    <br>
+    &quot; 69) test class access to inherited class using the inherited methods &quot;
+    printstring cr<br>
+    apngo -: tcn3 apngo -: tcn2<br>
+    <br>
+    traceon<br>
+    <br>
+    class: TestDataTypes<br>
+    private:<br>
+    [byte] a_byte<br>
+    2 [bytes] 2_bytes<br>
+    [word] a_word<br>
+    3 [words] 3_words<br>
+    [dword] a_dword<br>
+    4 [dwords] 4_dwords<br>
+    [pointer] a_pointer<br>
+    5 [pointers] 5_pointers<br>
+    6 10 [arrays] 7_arrays<br>
+    [class] hoomw a_class<br>
+    8 [classes] hoomw 8_classes<br>
+    public:<br>
+    <br>
+    m: space 32 emit m; // not defined<br>
+    <br>
+    m: TestDataTypes! <br>
+    1 a_byte c!<br>
+    3 2 do <br>
+    i dup 2 - 2_bytes c! <br>
+    loop<br>
+    4 a_word w!<br>
+    7 4 do <br>
+    i dup 4 - 3_words w! <br>
+    loop<br>
+    8 a_dword ! <br>
+    12 9 do<br>
+    i dup 9 - 4_dwords ! <br>
+    loop<br>
+    13 a_pointer !<br>
+    19 14 do <br>
+    i dup 14 - 5_pointers ! <br>
+    loop<br>
+    26 20 do <br>
+    9 0 do <br>
+    j 32 + i +<br>
+    j 20 - 7_arrays i + dup 1+ 0 swap c! c! <br>
+    loop <br>
+    loop <br>
+    a_class -: tcn4 <br>
+    35 28 do i 28 - 8_classes -: tcn3 loop <br>
+    m;<br>
+    <br>
+    <br>
+    m: TestDataTypes@ <br>
+    a_byte dup . c@ . cr<br>
+    3 2 do <br>
+    i 2 - 2_bytes dup . c@ . space <br>
+    loop cr<br>
+    a_word dup . w@ . cr <br>
+    7 4 do <br>
+    i 4 - 3_words dup . w@ . space <br>
+    loop cr<br>
+    a_dword dup . @ . cr <br>
+    12 9 do <br>
+    i 9 - 4_dwords dup . @ . space <br>
+    loop cr<br>
+    a_pointer dup . @ . cr<br>
+    19 14 do <br>
+    i 14 - 5_pointers dup . @ . space <br>
+    loop cr<br>
+    26 20 do <br>
+    9 0 do <br>
+    j 20 - 7_arrays i + dup . 32 emit c@ emit <br>
+    loop cr <br>
+    loop <br>
+    a_class -: tcn2 <br>
+    35 28 do i 28 - 8_classes -: tcn2 loop <br>
+    m;<br>
+    <br>
+    traceoff<br>
+    <br>
+    class;<br>
+    <br>
+    TestDataTypes testinst<br>
+    <br>
+    testinst -: TestDataTypes!<br>
+    testinst -: TestDataTypes@<br>
+    <br>
+    &quot; 70) test automatic call to constructor and override forth words with method
+    names&quot; printstring cr<br>
+    <br>
+    class: Toot<br>
+    [dword] tootval<br>
+    public:<br>
+    <br>
+    traceon<br>
+    m: Toot 111222 tootval ! m;<br>
+    traceoff<br>
+    m: GetToot tootval @ m;<br>
+    m: ReadToot tootval @ . cr m;<br>
+    m: + * m;<br>
+    <br>
+    class;<br>
+    <br>
+    .s cr<br>
+    <br>
+    Toot A_Toot<br>
+    <br>
+    A_Toot -: ReadToot<br>
+    1 1 A_Toot -: + . cr<br>
+    <br>
+    &quot; 70) test automatic call to constructor with new and -&gt; &quot; printstring cr<br>
+    traceon<br>
+    new Toot variable holds_Toot<br>
+    traceoff<br>
+    <br>
+    holds_Toot @ -&gt; Toot ReadToot cr<br>
+    <br>
+    &quot; 71) test constructor with constructor inheritance &quot; printstring cr<br>
+    <br>
+    traceon<br>
+    class: FromToot public: := Toot<br>
+    traceoff<br>
+    <br>
+    private:<br>
+    [dword] plustoot<br>
+    <br>
+    m: FromToot GetToot 222 - plustoot ! m;<br>
+    m: ReadPlus plustoot @ . cr m;<br>
+    class;<br>
+    <br>
+    (decompile)-class FromToot<br>
+    <br>
+    traceon<br>
+    FromToot B_Toot<br>
+    traceoff<br>
+    <br>
+    <br>
+    B_Toot -: ReadPlus<br>
+    <br>
+    .s cr<br>
+    <br>
+    <br>
+    &quot; 71) test m* s&lt;d &quot; printstring cr<br>
+    <br>
+    2 base !<br>
+    100 s&gt;d . bl emit . cr<br>
+    100 1 - s&gt;d . bl emit . cr<br>
+    -100 s&gt;d . bl emit . cr<br>
+    -100 1 + s&gt;d . bl emit . cr<br>
+    .s cr<br>
+    <br>
+    &quot; 72) test sm/rem fm/mod with both positive&quot; printstring cr<br>
+    <br>
+    10000000 10000000 m* 2dup . bl emit . cr \ 100 0000 0000 0000<br>
+    10000000 sm/rem . bl emit . cr <br>
+    10000000 10000000 m* 2dup . bl emit . cr \ 100 0000 0000 0000<br>
+    10000000 fm/mod . bl emit . cr <br>
+    .s cr<br>
+    &quot; 73) test sm/rem fm/mod with negative divisor&quot; printstring cr<br>
+    <br>
+    10000000 10000000 m* 2dup . bl emit . cr \ 100 0000 0000 0000<br>
+    -10000000 sm/rem . bl emit . cr <br>
+    10000000 10000000 m* 2dup . bl emit . cr \ 100 0000 0000 0000<br>
+    -10000000 fm/mod . bl emit . cr <br>
+    .s cr<br>
+    &quot; 74) test sm/rem fm/mod with negative d &quot; printstring cr<br>
+    <br>
+    -10000000 10000000 m* 2dup . bl emit . cr \ 100 0000 0000 0000<br>
+    10000000 sm/rem . bl emit . cr <br>
+    -10000000 10000000 m* 2dup . bl emit . cr \ 100 0000 0000 0000<br>
+    10000000 fm/mod . bl emit . cr <br>
+    decimal .s cr<br>
+    <br>
+    10 0 -7 sm/rem . bl emit . cr<br>
+    10 0 -7 fm/mod . bl emit . cr<br>
+    -10 s&gt;d 7 sm/rem . bl emit . cr<br>
+    -10 s&gt;d 7 fm/mod . bl emit . cr<br>
+    <br>
+    .s<br>
+    hex<br>
+    traceon<br>
+    : output-test<br>
+    .&quot; you should see the standard graphic characters:&quot; cr<br>
+    41 bl do i emit loop cr<br>
+    61 41 do i emit loop cr<br>
+    7f 61 do i emit loop cr<br>
+    .&quot; you should see 0-9 separated by a space:&quot; cr<br>
+    9 1+ 0 do i . loop cr<br>
+    .&quot; you should see 0-9 (with no spaces):&quot; cr<br>
+    [char] 9 1+ [char] 0 do i 0 spaces emit loop cr<br>
+    .&quot; you should see a-g separated by a space:&quot; cr<br>
+    [char] g 1+ [char] a do i emit space loop cr<br>
+    .&quot; you should see 0-5 separated by two spaces:&quot; cr<br>
+    5 1+ 0 do i [char] 0 + emit 2 spaces loop cr<br>
+    .&quot; you should see two separate lines:&quot; cr<br>
+    s&quot; line 1&quot; type cr s&quot; line 2&quot; type cr<br>
+    .&quot; you should see the number ranges of signed and unsigned numbers:&quot; cr<br>
+    .&quot; signed: &quot; min-int . max-int . cr<br>
+    .&quot; unsigned: &quot; 0 u. max-uint u. cr<br>
+    ;<br>
+    decimal<br>
+    traceoff<br>
+    output-test<br>
+    <br>
+    <br>
+    &quot; 75) test stack underflow to see error &quot; printstring cr<br>
+    <br>
+    : loogg 1 1 + drop soog ;<br>
+    <br>
+    .s<br>
+    <br>
+    loogg cr<br>
+    <br>
+    &quot; Test Complete -------------------------------&quot; printstring cr<br>
+    <br>
+    <br>
+    <br>
+  </dd>
+</dl>
+&nbsp;<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+
+<h5><!--mstheme--><font color="#660033">[_Zen_Soft]&nbsp; is a trademark of [_Zen_Soft]. All other products mentioned are
+registered trademarks or trademarks of their respective companies.<br>
+<br>
+Questions or problems regarding this web site should be directed to
+[scuddersaul@earthlink.com].<br>
+Copyright © 2000[_Zen_Soft]. All rights reserved.<br>
+Last modified: Monday June 26, 2000.<!--mstheme--></font></h5>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

@@ -1,0 +1,283 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\_Zen_Soft_Forth.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\_Zen_Soft_Forth.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 289, 78
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "About _Zen_Soft_Forth"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,21,20
+    LTEXT           "_Zen_Soft_Forth Version 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2004",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,232,7,50,16,WS_GROUP
+    PUSHBUTTON      "Forth Description",IDC_FORTH,135,39,107,14
+END
+
+IDD__ZEN_SOFT_FORTH_DIALOG DIALOGEX 0, 0, 694, 443
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | 
+    WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "_Zen_Soft_Forth"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_INPUT_AREA,"RichEdit20A",ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN | WS_BORDER | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP,12,96,516,96
+    PUSHBUTTON      "Interpret input",IDC_INTERPRET,540,90,72,14
+    GROUPBOX        "Forth Input",IDC_STATIC,6,84,528,114,0,
+                    WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_OUTPUT,"RichEdit20A",ES_MULTILINE | 
+                    ES_AUTOHSCROLL | WS_BORDER | WS_VSCROLL | WS_TABSTOP,12,
+                    216,515,210
+    GROUPBOX        "Forth Output",IDC_STATIC,6,204,528,228,0,
+                    WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE
+    PUSHBUTTON      "Open file in input",IDC_LOADFILE,540,108,72,14
+    PUSHBUTTON      "Open Trace Window",IDC_OPENTRACE,540,144,72,14
+    PUSHBUTTON      "Forth Help",IDC_SHOWINFO,618,90,72,14
+    PUSHBUTTON      "Save Input as file",IDC_SAVEFILE,540,126,72,14
+    PUSHBUTTON      "Save output as file",IDC_SAVE_OUTPUT,540,210,72,14
+    DEFPUSHBUTTON   "Bye",IDOK,618,126,73,14
+    CONTROL         "",IDC_FORTHHISTORY,"RichEdit20A",ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_READONLY | WS_BORDER | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP,12,18,516,54
+    GROUPBOX        "History",IDC_STATIC,6,6,528,72,0,WS_EX_DLGMODALFRAME | 
+                    WS_EX_CLIENTEDGE
+    PUSHBUTTON      "Save History as file",IDC_HISTORY,540,12,72,14
+    PUSHBUTTON      "Forget Session",IDC_FORGETSESSION,618,108,72,14
+    LTEXT           """Enter"" is parse, ""Shift-Enter"" is newline",
+                    IDC_STATIC,543,178,131,8
+END
+
+IDD_TRACEFORTH DIALOGEX 0, 0, 410, 449
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Trace"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TRACEBOX,"RichEdit20A",ES_MULTILINE | WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,6,6,396,438
+END
+
+IDD_FORTHINFO DIALOGEX 0, 0, 576, 404
+STYLE DS_SYSMODAL | DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Forth Information"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,519,7,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "_Zen_Soft"
+            VALUE "FileDescription", "Forth Interpreter Windows"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "_Zen_Soft_Forth.exe"
+            VALUE "LegalCopyright", " (c) _Zen_Soft 1994"
+            VALUE "OriginalFilename", "_Zen_Soft_Forth.exe"
+            VALUE "ProductName", "_Zen_Soft Forth Interpreter"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 282
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 71
+    END
+
+    IDD__ZEN_SOFT_FORTH_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 687
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 436
+    END
+
+    IDD_TRACEFORTH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 403
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 442
+    END
+
+    IDD_FORTHINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 569
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 397
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+                                                 // "Q:\code\Code_2013\Forth\Interpreter\HTML_DOCS\forth.htm"     
+//IDR_FORTHELP            HTML                    "Q:\\code\\Code_2013\\Forth\\Interpreter\\HTML_DOCS\\forth.htm"
+IDR_FORTHELP            HTML                    "..\\HTML_DOCS\\forth.htm"
+IDR_HTML_FORTHINFORMATION HTML                    "forthinformation.htm"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "..\\HTML_DOCS\\classd.bmp"
+IDB_LIGHT               BITMAP                  "..\\html_docs\\bitmap2.bmp"
+IDB_DARK                BITMAP                  "..\\html_docs\\bmp00001.bmp"
+
+//IDB_BITMAP1             BITMAP                  "Q:\\code\\Code_2013\\Forth\\Interpreter\\HTML_DOCS\\classd.bmp"
+//IDB_LIGHT               BITMAP                  "Q:\\code\\Code_2013\\Forth\\Interpreter\\html_docs\\bitmap2.bmp"
+//IDB_DARK                BITMAP                  "Q:\\code\\Code_2013\\Forth\\Interpreter\\html_docs\\bmp00001.bmp"
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About _Zen_Soft_Forth..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\_Zen_Soft_Forth.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,691 @@
+0) test . 
+1 2 3 
+1) test + and dup 
+21245 7194 28439 
+2) test - 
+11111 22222 -11111 
+
+Name: "soog"
+-->Element 0 is  a literal == to -1
+-->Element 1 is  a literal == to 7
+-->Element 2 is  a call to the word runif
+-->Element 3 is  a literal == to 123
+-->Element 4 is  a literal == to 456
+-->Element 5 is  a call to the word +
+-->Element 6 is  a call to the word .
+-->Element 7 is  a call to the word runthen
+ --End-of-decompile----
+empty stack
+
+3) test ( : ; if else then )
+579 666 333 empty stack
+
+
+4) This is a test string
+66 
+this is another test string 
+5) test begin until 
+the output was 11 
+6) test constant 
+2 
+7) test rot 1 2 3 1 3 2 
+8) test multiply 1111 2 2222 
+9) test divide 10000 100 100 
+10) test variable 
+test @ 777 
+test ! 888 
+OK 
+11) test +! 999 
+12) test max 1000 2000 2000 
+13) test min 1000 2000 1000 
+14) test == 1000 2000 0 
+15) test <> 1000 2000 -1 
+16) test > 1000 2000 0 
+17) test >= 1000 2000 0 
+18) test 0= 2000 0 
+OK 
+19) compile testtrue 
+
+20) test negate 
+OK 
+21) test == 
+-24 -25 false 
+OK 
+22) test < 
+-24 -25 false 
+OK 
+23) test str= 
+OK 
+The rain in Spain 
+The same in Maine 
+OK 
+The same in Maine 
+The same in Maine The same in Maine 
+OK 
+24) test substr 
+The same in Maine same in
+same in
+OK 
+25) test str+ 
+The same in Maine again 
+-23 
+26) test do .. loop 
+empty stack
+1 2 3 4 5 6 7 8 9 10 10 
+27) test string 
+Above the town there was a grey wall 
+empty stack
+
+Name: "townwall"
+-->Element 0 is  a pointer to the string literal Above the town there was a grey wall 
+ --End-of-decompile----
+empty stack
+OK 
+28) test newchar 
+OK 
+empty stack
+
+empty stack
+
+empty stack
+
+7777777777
+empty stack
+a string 
+empty stack
+2 1 4 3 
+2 1 4 3 2 1 
+
+Name: "droove"
+-->Element 0 is  a literal == to 0
+-->Element 1 is  a literal == to 1
+-->Element 2 is  a literal == to 2
+-->Element 3 is  a literal == to 3
+-->Element 4 is  a call to the word runbegin
+-->Element 5 is  a call to the word dup
+-->Element 6 is  a literal == to 27
+-->Element 7 is  a call to the word runcase
+-->Element 8 is  a literal == to 1
+-->Element 9 is  a literal == to 16
+-->Element 10 is  a call to the word runof
+-->Element 11 is  a literal == to 3252532
+-->Element 12 is  a literal == to 5
+-->Element 13 is  a call to the word type
+-->Element 14 is  a call to the word cr
+-->Element 15 is  a literal == to 6
+-->Element 16 is  a call to the word runendof
+-->Element 17 is  a literal == to 2
+-->Element 18 is  a literal == to 25
+-->Element 19 is  a call to the word runof
+-->Element 20 is  a literal == to 3252500
+-->Element 21 is  a literal == to 4
+-->Element 22 is  a call to the word type
+-->Element 23 is  a call to the word cr
+-->Element 24 is  a literal == to 6
+-->Element 25 is  a call to the word runendof
+-->Element 26 is  a call to the word drop
+-->Element 27 is  a call to the word runendcase
+-->Element 28 is  a literal == to 31
+-->Element 29 is  a call to the word runwhile
+-->Element 30 is  a literal == to 4
+-->Element 31 is  a call to the word runrepeat
+ --End-of-decompile----
+abcdefghijkl.m.n.o.p.q.r.s.t.u.v.w.x.y.z.
+fooone 
+two 222222222222222222
+four
+three
+abcdefghijkl.m.n.o.p.q.r.s.t.u.v.w.x.y.z.
+fooone 
+two 222222222222222222
+**) test formated output
+FFA02
+
+3
+29) test str>cstr 
+
+OK 
+30) test delchar 
+1 OK 
+31) >>> Test structure defining words 
+
+
+32) print struct size 
+126 
+33) >>> Test create instance of structure 
+34) Address of new instance 
+3258400 
+35) Address Large_long  (+25) 
+3258425 25 
+36) Address Large_short  (29) 
+3258429 29 
+37) Address Large_both[0]  (31) 
+3258431 31 
+38) Address Large_both[1]  (35) 
+3258435 35 
+39) Address Large_small[0]  (39) 
+3258439 39 
+40) Address Large_small 1 Small_long 93 
+3258493 93 
+41) put 1000 in  *AddrLarge.Large_small[1].Small_long 
+42) get the long back 
+1000 
+OK 
+i test 
+0 1 2 3 4 5 6 7 8 9 
+43) Test +loop 
+0 2 4 6 8 10 12 14 16 18 
+0 2 4 6 8 10 12 14 16 18 
+44) Test ?do 
+empty stack
+0 2 4 6 8 
+
+Stack: 7 5 2 
+
+empty stack
+
+empty stack
+45) test i i 
+
+Name: "juuoool"
+-->Element 0 is  a call to the word nop
+-->Element 1 is  a literal == to 10
+-->Element 2 is  a literal == to 0
+-->Element 3 is  a literal == to 17
+-->Element 4 is  a value set to 1234567 
+-->Element 5 is  a value set to 1234567 
+-->Element 6 is  a call to the word rundo
+-->Element 7 is  a pointer to the string literal nxn:
+-->Element 8 is  a call to the word printstring
+-->Element 9 is  a literal == to 6
+-->Element 10 is  a call to the word runi
+-->Element 11 is  a literal == to 6
+-->Element 12 is  a call to the word runi
+-->Element 13 is  a call to the word *
+-->Element 14 is  a call to the word .
+-->Element 15 is  a call to the word cr
+-->Element 16 is  a literal == to 6
+-->Element 17 is  a call to the word runloop
+ --End-of-decompile----
+nxn:0 
+nxn:1 
+nxn:4 
+nxn:9 
+nxn:16 
+nxn:25 
+nxn:36 
+nxn:49 
+nxn:64 
+nxn:81 
+
+empty stack
+46) test i with j 
+0 0 0 0 0 
+0 1 2 3 4 
+0 2 4 6 8 
+0 3 6 9 12 
+0 4 8 12 16 
+
+empty stack
+47) i inside loop and if 
+empty stack
+0 1 2 3 4 4 
+empty stack
+48) test leave 
+empty stack
+
+Name: "iiiool"
+-->Element 0 is  a literal == to 10
+-->Element 1 is  a literal == to 0
+-->Element 2 is  a literal == to 22
+-->Element 3 is  a value set to 1234567 
+-->Element 4 is  a value set to 1234567 
+-->Element 5 is  a call to the word rundo
+-->Element 6 is  a literal == to 5
+-->Element 7 is  a call to the word runi
+-->Element 8 is  a call to the word dup
+-->Element 9 is  a call to the word .
+-->Element 10 is  a literal == to 7
+-->Element 11 is  a call to the word ==
+-->Element 12 is  a literal == to -1
+-->Element 13 is  a literal == to 20
+-->Element 14 is  a call to the word runif
+-->Element 15 is  a literal == to 5
+-->Element 16 is  a call to the word runi
+-->Element 17 is  a call to the word .
+-->Element 18 is  a literal == to 5
+-->Element 19 is  a call to the word runleave
+-->Element 20 is  a call to the word runthen
+-->Element 21 is  a literal == to 5
+-->Element 22 is  a call to the word runloop
+-->Element 23 is  a call to the word cr
+ --End-of-decompile----
+
+empty stack
+0 1 2 3 4 5 6 7 7 
+empty stack
+49) test case 
+0 20 
+1 11 
+2 12 
+3 13 
+4 24 
+5 25 
+6 26 
+7 27 
+8 28 
+9 29 
+50) test begin while repeat 
+6 -1 16 
+9 -1 19 
+12 -1 22 
+15 -1 25 
+18 -1 28 
+21 0 21 
+
+Name: "tbwr"
+-->Element 0 is  a call to the word runbegin
+-->Element 1 is  a literal == to 3
+-->Element 2 is  a call to the word +
+-->Element 3 is  a call to the word dup
+-->Element 4 is  a call to the word .
+-->Element 5 is  a call to the word dup
+-->Element 6 is  a literal == to 20
+-->Element 7 is  a call to the word <
+-->Element 8 is  a call to the word dup
+-->Element 9 is  a call to the word .
+-->Element 10 is  a literal == to 18
+-->Element 11 is  a call to the word runwhile
+-->Element 12 is  a call to the word dup
+-->Element 13 is  a literal == to 10
+-->Element 14 is  a call to the word +
+-->Element 15 is  a call to the word .
+-->Element 16 is  a call to the word cr
+-->Element 17 is  a literal == to 0
+-->Element 18 is  a call to the word runrepeat
+-->Element 19 is  a call to the word .
+-->Element 20 is  a call to the word cr
+ --End-of-decompile----
+51) test immediate and literal 
+4 
+0 
+1 
+forth
+roof
+4 
+4 
+empty stack
+
+foobar
+
+0 
+1 
+0 
+4 
+-1 
+: km 2 . ; source type cr
+
+Name: "testcre"
+-->Element 0 is  a literal == to 3262064
+ --End-of-decompile----
+
+
+Name: "mcre"
+-->Element 0 is  a call to the word create
+-->Element 1 is  a literal == to 100
+-->Element 2 is  a call to the word allot
+-->Element 3 is  a literal == to 2
+-->Element 4 is  a call to the word rundoes>
+-->Element 5 is  a literal == to 10
+-->Element 6 is  a call to the word +
+ --End-of-decompile----
+
+4837920 
+empty stack
+empty stack
+
+Name: "fmcre"
+-->Element 0 is  a literal == to 3260688
+-->Element 1 is  a literal == to 5
+-->Element 2 is  a literal == to 4837920
+-->Element 3 is  a primitive
+ --End-of-decompile----
+
+empty stack
+3260698 
+empty stack
+53) test exit 
+0 0 0 0 0 0 0 0 0 0 
+1 1 1 1 1 1 1 1 1 1 
+2 2 2 2 2 2 2 2 2 2 
+3 3 3 3 3 3 3 3 3 3 
+4 4 4 4 4 4 4 4 4 4 
+5 5 5 5 5 5 5 5 5 5 
+6 6 6 6 6 6 6 6 6 6 
+7 
+54) test [ ] and literal 
+
+Name: "testbb"
+-->Element 0 is  a literal == to 34
+-->Element 1 is  a call to the word .
+-->Element 2 is  a call to the word cr
+ --End-of-decompile----
+
+34 
+2 2 
+55) test roll 
+Stack: 1 4 3 2 
+empty stack
+56) test unloop exit 
+0 0 1 2 3 4 5 
+Name: "testule"
+-->Element 0 is  a literal == to 10
+-->Element 1 is  a literal == to 0
+-->Element 2 is  a literal == to 34
+-->Element 3 is  a value set to 1234567 
+-->Element 4 is  a value set to 1234567 
+-->Element 5 is  a call to the word rundo
+-->Element 6 is  a literal == to 5
+-->Element 7 is  a call to the word runi
+-->Element 8 is  a call to the word .
+-->Element 9 is  a literal == to 10
+-->Element 10 is  a literal == to 0
+-->Element 11 is  a literal == to 31
+-->Element 12 is  a value set to 1234567 
+-->Element 13 is  a value set to 1234567 
+-->Element 14 is  a call to the word rundo
+-->Element 15 is  a literal == to 14
+-->Element 16 is  a call to the word runi
+-->Element 17 is  a call to the word dup
+-->Element 18 is  a call to the word .
+-->Element 19 is  a literal == to 5
+-->Element 20 is  a call to the word ==
+-->Element 21 is  a literal == to -1
+-->Element 22 is  a literal == to 29
+-->Element 23 is  a call to the word runif
+-->Element 24 is  a literal == to 14
+-->Element 25 is  a call to the word rununloop
+-->Element 26 is  a literal == to 5
+-->Element 27 is  a call to the word rununloop
+-->Element 28 is  a call to the word runexit
+-->Element 29 is  a call to the word runthen
+-->Element 30 is  a literal == to 14
+-->Element 31 is  a call to the word runloop
+-->Element 32 is  a call to the word cr
+-->Element 33 is  a literal == to 5
+-->Element 34 is  a call to the word runloop
+ --End-of-decompile----
+57) test recurse 
+4 
+Name: "testrec"
+-->Element 0 is  a call to the word 1+
+-->Element 1 is  a call to the word dup
+-->Element 2 is  a literal == to 4
+-->Element 3 is  a call to the word <
+-->Element 4 is  a literal == to 9
+-->Element 5 is  a literal == to 11
+-->Element 6 is  a call to the word runif
+-->Element 7 is  a call to the word recurse
+-->Element 8 is  a literal == to 11
+-->Element 9 is  a call to the word runelse
+-->Element 10 is  a call to the word .
+-->Element 11 is  a call to the word runthen
+ --End-of-decompile----
+58) test f/ fsin fcos facos fasin 
+ 1.000000 
+ 10.000000 
+ 0.100000 
+ 0.099833 
+ 0.995021 
+ 0.099833 
+ 0.100000 
+59) test small class 
+60) started class definition 
+61) added 1st [dword] object 
+62) added 1st method 
+2 2 
+63) test (decompile)-class 
+
+Class Name: "goomb"
+Name: "anw"A private object (size = 4)
+ --End-of-decompile of anw----
+Name: "bnw"A private object (size = 4)
+ --End-of-decompile of bnw----
+Name: "cnw"A private object (size = 4)
+ --End-of-decompile of cnw----
+Name: "anw2"A public object (size = 4)
+ --End-of-decompile of anw2----
+Name: "bnw2"A public object (size = 4)
+ --End-of-decompile of bnw2----
+Name: "cnw2"A public object (size = 4)
+ --End-of-decompile of cnw2----
+Method Name: "Anw!"
+-->Element 0 is  a literal == to 3265932
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object anw
+-->Element 3 is  a call to the word !
+ --End-of-decompile of Anw!----
+Method Name: "Anw@"
+-->Element 0 is  a literal == to 3265932
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object anw
+-->Element 3 is  a call to the word @
+ --End-of-decompile of Anw@----
+Method Name: "Bnw!"
+-->Element 0 is  a literal == to 3265932
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object bnw
+-->Element 3 is  a call to the word !
+ --End-of-decompile of Bnw!----
+Method Name: "Bnw@"
+-->Element 0 is  a literal == to 3265932
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object bnw
+-->Element 3 is  a call to the word @
+ --End-of-decompile of Bnw@----
+Method Name: "Cnw!"
+-->Element 0 is  a literal == to 3265932
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object cnw
+-->Element 3 is  a call to the word !
+ --End-of-decompile of Cnw!----
+Method Name: "Cnw@"
+-->Element 0 is  a literal == to 3265932
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object cnw
+-->Element 3 is  a call to the word @
+ --End-of-decompile of Cnw@----
+Method Name: "SumAB"
+-->Element 0 is  a literal == to 1
+-->Element 1 is  a literal == to 3265932
+-->Element 2 is  a call to the word this
+-->Element 3 is  a call to the method Anw!
+-->Element 4 is  a literal == to 1
+-->Element 5 is  a literal == to 3265932
+-->Element 6 is  a call to the word this
+-->Element 7 is  a call to the method Bnw!
+-->Element 8 is  a literal == to 3265932
+-->Element 9 is  a call to the word this
+-->Element 10 is  a call to the method Anw@
+-->Element 11 is  a literal == to 3265932
+-->Element 12 is  a call to the word this
+-->Element 13 is  a call to the method Bnw@
+-->Element 14 is  a call to the word +
+-->Element 15 is  a call to the word dup
+-->Element 16 is  a call to the word .
+-->Element 17 is  a literal == to 3265932
+-->Element 18 is  a call to the word this
+-->Element 19 is  a call to the method Cnw!
+-->Element 20 is  a literal == to 3265932
+-->Element 21 is  a call to the word this
+-->Element 22 is  a call to the method Cnw@
+-->Element 23 is  a call to the word .
+-->Element 24 is  a call to the word cr
+ --End-of-decompile of SumAB----
+ --End-of-class-decompile---
+64) test use of class in defined method 
+2 2 
+65) test use of class in class 
+5 result of goomb2 Usetrue1
+5 result of goomb2 Usetrue12
+66) test use of class in class 
+5 result of goomb2 Usetrue1
+67) test class inheritance
+68) test class access to inherited class using -: 
+15 
+69) test class access to inherited class using the inherited methods 
+18 
+3282368 1 
+3282369 2  
+3282371 4 
+3282373 4  3282375 5  3282377 6  
+3282379 8 
+3282383 9  3282387 10  3282391 11  
+3282399 13 
+3282403 14  3282407 15  3282411 16  3282415 17  3282419 18  
+3282423  43282424  53282425  63282426  73282427  83282428  93282429  53282430  63282431  7
+3282429  53282430  63282431  73282432  83282433  93282434  :3282435  63282436  73282437  8
+3282435  63282436  73282437  83282438  93282439  :3282440  ;3282441  73282442  83282443  9
+3282441  73282442  83282443  93282444  :3282445  ;3282446  <3282447  83282448  93282449  :
+3282447  83282448  93282449  :3282450  ;3282451  <3282452  =3282453  93282454  :3282455  ;
+3282453  93282454  :3282455  ;3282456  <3282457  =3282458  >3282459  ?3282460  @3282461  A
+21 
+18 
+18 
+18 
+18 
+18 
+18 
+18 
+70) test automatic call to constructor and override forth words with method names
+empty stack
+
+111222 
+1 
+70) test automatic call to constructor with new and -> 
+111222 
+
+71) test constructor with constructor inheritance 
+
+Class Name: "FromToot"
+Name: "FromToot::Toot"A public class FromToot::Toot instance (size = 4)
+ --End-of-decompile of FromToot::Toot----
+Name: "plustoot"A private object (size = 4)
+ --End-of-decompile of plustoot----
+Method Name: "FromToot"
+-->Element 0 is  a literal == to 3287052
+-->Element 1 is  a call to the word this
+-->Element 2 is  a call to the method GetToot
+-->Element 3 is  a literal == to 222
+-->Element 4 is  a call to the word -
+-->Element 5 is  a literal == to 3287052
+-->Element 6 is  a call to the word this
+-->Element 7 is  a reference to the class data object plustoot
+-->Element 8 is  a call to the word !
+ --End-of-decompile of FromToot----
+Method Name: "ReadPlus"
+-->Element 0 is  a literal == to 3287052
+-->Element 1 is  a call to the word this
+-->Element 2 is  a reference to the class data object plustoot
+-->Element 3 is  a call to the word @
+-->Element 4 is  a call to the word .
+-->Element 5 is  a call to the word cr
+ --End-of-decompile of ReadPlus----
+ --End-of-class-decompile---
+111000 
+empty stack
+
+71) test m* s<d 
+0  100 
+0  11 
+0  11111111111111111111111111111100 
+0  11111111111111111111111111111101 
+empty stack
+
+72) test sm/rem fm/mod with both positive
+0  100000000000000 
+10000000  0 
+0  100000000000000 
+10000000  0 
+empty stack
+
+73) test sm/rem fm/mod with negative divisor
+0  100000000000000 
+0  100000000000000 
+0  100000000000000 
+0  100000000000000 
+empty stack
+
+74) test sm/rem fm/mod with negative d 
+1111111  11111111111111111100000000000000 
+11111111111111111111111110000000  0 
+1111111  11111111111111111100000000000000 
+11111111111111111111111110000000  0 
+empty stack
+
+0  10 
+0  10 
+613566755  1 
+613566755  1 
+empty stack
+you should see the standard graphic characters:
+ !"#$%&'()*+,-./0123456789:;<=>?@
+ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+abcdefghijklmnopqrstuvwxyz{|}~
+you should see 0-9 separated by a space:
+0 1 2 3 4 5 6 7 8 9 
+you should see 0-9 (with no spaces):
+0123456789
+you should see a-g separated by a space:
+a b c d e f g 
+you should see 0-5 separated by two spaces:
+0  1  2  3  4  5  
+you should see two separate lines:
+line 1
+line 2
+you should see the number ranges of signed and unsigned numbers:
+  signed: -2147483648 2147483647 
+unsigned: 0 4294967295 
+75) test included 
+Stack: 18 3278708 
+
+24 empty stack
+
+This is the included file 
+24 empty stack
+
+
+
+76) test stack underflow to see error 
+empty stack
+
+ERROR:>Stack Underflow runif 
+----------RSData stack 0 -----
+Name: "soog"
+-->Element 0 is  a literal == to -1
+-->Element 1 is  a literal == to 7
+-->Element 2 is  a call to the word runif
+-->Element 3 is  a literal == to 123
+-->Element 4 is  a literal == to 456
+-->Element 5 is  a call to the word +
+-->Element 6 is  a call to the word .
+-->Element 7 is  a call to the word runthen
+ --End-of-decompile---- 
+<<< Element 2 is executing >>>
+ 
+----------RSData stack 1 -----
+Name: "loogg"
+-->Element 0 is  a literal == to 1
+-->Element 1 is  a literal == to 1
+-->Element 2 is  a call to the word +
+-->Element 3 is  a call to the word drop
+-->Element 4 is  a call to the word soog
+ --End-of-decompile---- 
+<<< Element 4 is executing >>>
+ 
+----------RSData stack 2 -----
+Name: "nop"
+-->Element 0 is  a primitive
+ --End-of-decompile---- 
+<<< Element 0 is executing >>>
+

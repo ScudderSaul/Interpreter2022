@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>State Machine Parser Documentation</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="expeditn 001, default"><meta name="Microsoft Border" content="tlb, default"></head>
+
+<body background="_themes/expeditn/exptextb.jpg" bgcolor="#FFFFFF" text="#000000" link="#006600" vlink="#669966" alink="#990000"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<h1>_Zen_Soft Forth Interpreter</h1>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<p>&nbsp;</p>
+<!--mstheme--></font></td><td valign="top" width="24"></td><!--msnavigation--><td valign="top"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<p>The State Machine Parser turns a script like the following named listing
+&quot;test.sc&quot; into a c++ header file &quot;test.h&quot;.&nbsp; At present only
+Windows NT and Win 2000 are supported.</p>
+
+<p><a href="scriptandoutputpage.htm">Example Test.sc/Test.h</a></p>
+
+<h2><!--mstheme--><font color="#660033">Features/Known issues<!--mstheme--></font></h2>
+
+<ol>
+  <li>Generated code runs only under Windows NT and Windows 2000.</li>
+  <li>The generated and provided source code compiles with Microsoft's Visual C++ compiler.
+    Other compilers may work ...?</li>
+  <li>The generated source code must include and link with provided files that create a
+    framework for state machine instance creation and communication.</li>
+  <li>All state machine instances register themselves in a machine registry so that events
+    that might&nbsp; change their machine state can be directed to them from other state
+    machines or external interactions.</li>
+  <li>State machines instances given user defined names may receive events from state machines
+    in other programs on the same computer.</li>
+  <li>An <font color="#FF0000">alpha version</font> of peer to peer TCIP code is included that
+    will (eventually) allow state machines on the network to send and receive events</li>
+  <li>Both a Windows and a command line version of the state machine script parser are
+    provided. </li>
+</ol>
+
+<p>&nbsp;</p>
+&nbsp;<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+
+<h5><!--mstheme--><font color="#660033">[_Zen_Soft]&nbsp; is a trademark of [_Zen_Soft]. All other products mentioned are
+registered trademarks or trademarks of their respective companies.<br>
+<br>
+Questions or problems regarding this web site should be directed to
+[scuddersaul@earthlink.com].<br>
+Copyright © 2000[_Zen_Soft]. All rights reserved.<br>
+Last modified: Tuesday May 09, 2000.<!--mstheme--></font></h5>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

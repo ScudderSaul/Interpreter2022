@@ -1,0 +1,18 @@
+4 
+ERROR:>No Such Word voc 
+----------RSData stack 0 -----
+Name: "nop"
+-->Element 0 is  a primitive
+
+ --End-of-decompile---- 
+<<< Element 0 is executing >>>
+
+
+ERROR:>No Such Word volcabulary 
+----------RSData stack 0 -----
+Name: "nop"
+-->Element 0 is  a primitive
+
+ --End-of-decompile---- 
+<<< Element 0 is executing >>>
+

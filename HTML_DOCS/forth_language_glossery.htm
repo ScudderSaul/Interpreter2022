@@ -1,0 +1,533 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Forth Language Glossery</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="expeditn 001, default"><meta name="Microsoft Border" content="tlb, default"></head>
+
+<body background="_themes/expeditn/exptextb.jpg" bgcolor="#FFFFFF" text="#000000" link="#006600" vlink="#669966" alink="#990000"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<h1>_Zen_Soft Forth Interpreter</h1>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<p>&nbsp;</p>
+<!--mstheme--></font></td><td valign="top" width="24"></td><!--msnavigation--><td valign="top"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<h2><!--mstheme--><font color="#660033"><font size="3">Forth Language words&nbsp; </font><!--mstheme--></font></h2>
+
+<p><font size="3">The Forth language version defined in the files codeelemnt.cpp and
+codeelement.h is a partial implementation of the Forth ANSI standard. It is recommended
+that a copy of the ANSI standard document or a good Forth text book be used to learn
+&nbsp; Forth. This page will only list the words defined and describe some differences
+from the standard.&nbsp; It will also describe the way object oriented classes have been
+added to the implementation.&nbsp; </font></p>
+
+<p><font color="#800000">//+---------------------------------------------------------------------------------------+<br>
+//The files codeelement.h and codeelement.cpp are copyright © 1999 2000 by Saul Scudder<br>
+//They are distributed for non-profit use as freeware and no warranty is given with the
+use of<br>
+//this source for any purpose whatsoever.<br>
+//This copyright notice is to remain unmodified in the source file<br>
+//A license for commercial use of the _Zen_Soft programmers tools may be obtained by
+sending<br>
+//a check for $40.00 to <br>
+//_Zen_Soft c/o <br>
+//Saul Scudder<br>
+//5106 W. Crocus Dr.<br>
+//Glendale AZ 85306<br>
+//+---------------------------------------------------------------------------------------+</font></p>
+
+<h3><!--mstheme--><font color="#996600"><font size="3">Differences and bugs</font><!--mstheme--></font></h3>
+
+<ol>
+  <li><font size="3">As this version of Forth defines words as c++ objects with a collection
+    of elements that may be primitives or pointers to other forth words. The concept of a
+    &quot;here&quot; in a dictionary is not used. Thus sequences of code like </font><br>
+    <font size="3" color="#000000">here 4 allot</font><br>
+    <font size="3"> must be replaced with </font>other sequences such as<br>
+    <font size="3">crea</font>te name 4 allot ;create</li>
+  <li>This is a lower case Forth i<br>
+    .e. DUP becomes dup</li>
+  <li>Some incorrect results with negative loop indices have been observed.</li>
+  <li>Be careful of integer overflow, sizes&nbsp; and bounds</li>
+  <li>evaluate may not work as expected</li>
+  <li>This version of forth is distributed ass source code with minimal editing or run time
+    support. It is intended to be used to add language or scripting capacity to other programs
+    or projects and not as a stand alone forth system.</li>
+</ol>
+
+<h3><!--mstheme--><font color="#996600"><font size="3">Forth extensions</font><!--mstheme--></font></h3>
+
+<ol>
+  <li><font size="3">Floating point support and a separate floating point stack have been
+    implemented.</font></li>
+  <li><font size="3">An auilary stack has been implemented.</font></li>
+  <li><font size="3">Structure data types exist</font></li>
+  <li><font size="3">Some unique string manipulation words exist</font></li>
+  <li><font size="3">Memory managment has been implemented in part see the c++ source.</font></li>
+  <li><font size="3">Object oriented programming is supported with by Forth Classes, classes,
+    methods, constructors, destructors,inheritance and public and private are supported.
+    &nbsp; </font><a href="testforth.htm">(see the test program example for more information
+    on class usage) </a><br>
+    <br>
+    Example :<br>
+    &nbsp;&nbsp;&nbsp; class: goomb&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+    declare class type<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] anw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+    declare data elements some public and some private<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] bnw<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] cnw<br>
+    public:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] anw2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] bnw2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] cnw2<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; m: Anw@ anw @ m;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \ add methods<br>
+    &nbsp;&nbsp;&nbsp; m: Anw! anw ! m;<br>
+    &nbsp;&nbsp;&nbsp; m: Bnw@ bnw @ m;<br>
+    &nbsp;&nbsp;&nbsp; m: Bnw! bnw ! m;<br>
+    &nbsp;&nbsp;&nbsp; m: Cnw@ cnw @ m;<br>
+    &nbsp;&nbsp;&nbsp; m: Cnw! cnw ! m;<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; m: SumAB 1 Anw! 1 Bnw! Anw@ Bnw@ + dup . Cnw! Cnw@ . cr m;<br>
+    class;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \finish
+    Forth class declaration<br>
+    <br>
+    goomb pulah
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+    create a class instance named &quot;pulah&quot;<br>
+    pulah -: SumAB
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+    execute the method SumAB<br>
+    (decompile)-class goomb&nbsp;&nbsp;&nbsp;&nbsp; \ decompile the class<br>
+    : umber pulah -: SumAB ;&nbsp;&nbsp;&nbsp;&nbsp; \ compile&nbsp; a method into a Forth
+    word<br>
+    <br>
+    class: goomb2&nbsp;&nbsp; \ declare another class type<br>
+    &nbsp;&nbsp;&nbsp; [dword] mule<br>
+    &nbsp;&nbsp;&nbsp; [class] goomb truel&nbsp;&nbsp; \ this class contains a class instance<br>
+    public:<br>
+    &nbsp;&nbsp;&nbsp; [dword] mule2<br>
+    &nbsp;&nbsp;&nbsp; [class] goomb truel2<br>
+    m: Intrule 2 truel -: Anw! 2 truel -: Bnw! 1 mule ! m;<br>
+    m: Usetruel truel -: Anw@ truel -: Bnw@ mule @ + + . &quot; result of goomb2
+    Usetrue1&quot; printstring cr m;<br>
+    m: Intrule2 2 truel2 -: anw2 ! 2 truel2 -: bnw2 ! 1 mule2 ! m;<br>
+    m: Usetruel2 truel2 -: anw2 @ truel2 -: bnw2 @ mule2 @ + + . &quot; result of goomb2
+    Usetrue12&quot; printstring cr m;<br>
+    class;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+    end class with class;<br>
+    <br>
+    class: hoomw public: := goomb
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \ this class inherits
+    goomb as a public parent<br>
+    private:
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+    make them private after public: inherit<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dword] Adw<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [class] goomb acl<br>
+    public:<br>
+    &nbsp;&nbsp;&nbsp; m: tcn1 5 hoomw::goomb -: Anw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 hoomw::goomb -: Bnw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 hoomw::goomb -: Cnw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m: tcn2 hoomw::goomb -: Anw@ <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hoomw::goomb -: Bnw@ <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hoomw::goomb -: Cnw@ <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + + . cr <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m: tcn3 6 Anw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 Bnw!
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 Cnw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m;
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m: tcn4 7 Anw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 Bnw!
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 Cnw! <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m; <br>
+    class;<br>
+    <!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+    <h3><!--mstheme--><font color="#996600"><strong>FORTH Words list</strong><!--mstheme--></font></h3>
+    <p><br>
+    <strong>Defining words</strong><br>
+    <br>
+    colon, &quot;:&quot;, immediate<br>
+    semicolon, &quot;;&quot;, immediate<br>
+    constant, &quot;constant&quot;<br>
+    variable, &quot;variable&quot;<br>
+    create, &quot;create&quot;<br>
+    endcreate, &quot;;create&quot;<br>
+    allot, &quot;allot&quot;<br>
+    rundoes, &quot;rundoes&gt;&quot;, immediate<br>
+    does, &quot;does&gt;&quot;, immediate<br>
+    postpone, &quot;postpone&quot;, immediate<br>
+    <br>
+    <strong>Comment words</strong><br>
+    <br>
+    Comment, &quot;(&quot;, immediate<br>
+    CppComment, &quot;//&quot;, immediate<br>
+    ForthComment, &quot;\\&quot;, immediate<br>
+    <br>
+    <strong>Output words</strong><br>
+    <br>
+    quote, &quot;\&quot;&quot;, immediate<br>
+    dotquote, &quot;.\&quot;&quot;, immediate<br>
+    dot, &quot;.&quot;<br>
+    udot, &quot;u.&quot;<br>
+    emit, &quot;emit&quot;<br>
+    nop, &quot;nop&quot;<br>
+    CR, &quot;cr&quot;<br>
+    printstring, &quot;printstring&quot;<br>
+    type, &quot;type&quot;<br>
+    count, &quot;count&quot;<br>
+    word, &quot;word&quot;<br>
+    <br>
+    <strong>Control words</strong> (some like runif or runbegin are generated for
+    &nbsp; internal Forth use only)<br>
+    <br>
+    runif, &quot;runif&quot;<br>
+    if, &quot;if&quot;, immediate<br>
+    runelse, &quot;runelse&quot;<br>
+    else, &quot;else&quot;, immediate<br>
+    runthen, &quot;runthen&quot;<br>
+    then, &quot;then&quot;, immediate<br>
+    runbegin, &quot;runbegin&quot;<br>
+    begin, &quot;begin&quot;, immediate<br>
+    rununtil, &quot;rununtil&quot;<br>
+    until, &quot;until&quot;, immediate<br>
+    rundo, &quot;rundo&quot;<br>
+    do, &quot;do&quot;, immediate<br>
+    runloop, &quot;runloop&quot;<br>
+    loop, &quot;loop&quot;, immediate<br>
+    runiinloop, &quot;runi&quot;<br>
+    iinloop, &quot;i&quot;, immediate<br>
+    runjinloop, &quot;runj&quot;<br>
+    jinloop, &quot;j&quot;, immediate<br>
+    runleave, &quot;runleave&quot;<br>
+    leave, &quot;leave&quot;, immediate<br>
+    runplusloop, &quot;+runloop&quot;<br>
+    plusloop, &quot;+loop&quot;, immediate<br>
+    runquestiondo, &quot;?rundo&quot;<br>
+    questiondo, &quot;?do&quot;, immediate<br>
+    rununloop, &quot;rununloop&quot;<br>
+    unloop, &quot;unloop&quot;, immediate<br>
+    runwhile, &quot;runwhile&quot;<br>
+    while, &quot;while&quot;, immediate<br>
+    runrepeat, &quot;runrepeat&quot;<br>
+    repeat, &quot;repeat&quot;, immediate<br>
+    runagain, &quot;runagain&quot;<br>
+    again, &quot;again&quot;, immediate<br>
+    runcase, &quot;runcase&quot;<br>
+    case, &quot;case&quot;, immediate<br>
+    runof, &quot;runof&quot;<br>
+    of, &quot;of&quot;, immediate<br>
+    runendof, &quot;runendof&quot;<br>
+    endof, &quot;endof&quot;, immediate<br>
+    runendcase, &quot;runendcase&quot;<br>
+    endcase, &quot;endcase&quot;, immediate<br>
+    runexit, &quot;runexit&quot;, immediate<br>
+    exit, &quot;exit&quot;, immediate<br>
+    recurse, &quot;recurse&quot;<br>
+    quit, &quot;quit&quot;<br>
+    bye, &quot;bye&quot;<br>
+    <br>
+    <strong>Stack words</strong><br>
+    <br>
+    stackdepth, &quot;depth&quot;<br>
+    drop, &quot;drop&quot;<br>
+    over, &quot;over&quot;<br>
+    swap, &quot;swap&quot;<br>
+    dup, &quot;dup&quot;<br>
+    questiondup, &quot;?dup&quot;<br>
+    rot, &quot;rot&quot;<br>
+    rpush, &quot;&gt;r&quot;<br>
+    rpop, &quot;r&gt;&quot;<br>
+    rfetch, &quot;r@&quot;<br>
+    nip, &quot;nip&quot;<br>
+    pick, &quot;pick&quot;<br>
+    tuck, &quot;tuck&quot;<br>
+    roll, &quot;roll&quot;<br>
+    reverserot, &quot;-rot&quot;<br>
+    twodup, &quot;2dup&quot;<br>
+    twodrop, &quot;2drop&quot;<br>
+    twoswap, &quot;2swap&quot;<br>
+    twoover, &quot;2over&quot;<br>
+    <br>
+    <strong>Auxiliary Stack Words</strong> (used to operate on the auxillary stack)<br>
+    <br>
+    auxpop, &quot;aux&gt;&quot;<br>
+    auxpush, &quot;&gt;aux&quot;<br>
+    auxswap, &quot;auxswap&quot;<br>
+    auxover, &quot;auxover&quot;<br>
+    auxdrop, &quot;auxdrop&quot;<br>
+    auxrot, &quot;auxrot&quot;<br>
+    auxreverserot, &quot;-auxrot&quot;<br>
+    auxfetch, &quot;aux@&quot;<br>
+    auxnip, &quot;auxnip&quot;<br>
+    auxpick, &quot;auxpick&quot;<br>
+    auxtuck, &quot;auxtuck&quot;<br>
+    auxroll, &quot;auxroll&quot;<br>
+    auxtwodup, &quot;aux2dup&quot;<br>
+    auxtwodrop, &quot;aux2drop&quot;<br>
+    <br>
+    <strong>Address words</strong><br>
+    <br>
+    fetch, &quot;@&quot;<br>
+    store, &quot;!&quot;<br>
+    cstore, &quot;c!&quot;<br>
+    cfetch, &quot;c@&quot;<br>
+    wstore, &quot;w!&quot;<br>
+    wfetch, &quot;w@&quot;<br>
+    plusstore, &quot;+!&quot;<br>
+    twostore, &quot;2!&quot;<br>
+    twofetch, &quot;2@&quot;<br>
+    <br>
+    <strong>Arithmatic and number words words</strong><br>
+    <br>
+    plus, &quot;+&quot;<br>
+    minus, &quot;-&quot;<br>
+    multiply, &quot;*&quot;<br>
+    starslash, &quot;*/&quot;<br>
+    starslashmod, &quot;*/mod&quot;<br>
+    divide, &quot;/&quot;<br>
+    oneplus, &quot;1+&quot;<br>
+    oneminus, &quot;1-&quot;<br>
+    twotimes, &quot;2*&quot;<br>
+    twoplus, &quot;2+&quot;<br>
+    twominus, &quot;2-&quot;<br>
+    twoslash, &quot;2/&quot;<br>
+    abs, &quot;abs&quot;<br>
+    and, &quot;and&quot;<br>
+    not, &quot;not&quot;<br>
+    or, &quot;or&quot;<br>
+    xor, &quot;xor&quot;<br>
+    rshift, &quot;rshift&quot;<br>
+    lshift, &quot;lshift&quot;<br>
+    invert, &quot;invert&quot;<br>
+    base, &quot;base&quot;<br>
+    hex, &quot;hex&quot;<br>
+    decimal, &quot;decimal&quot;<br>
+    octal, &quot;octal&quot;<br>
+    fmslashmod, &quot;fm/mod&quot;<br>
+    smslashrem, &quot;sm/rem&quot;<br>
+    sTod, &quot;s&gt;d&quot;<br>
+    mtimes, &quot;m*&quot;<br>
+    umtimes, &quot;um*&quot;<br>
+    umslashmod, &quot;um/mod&quot;<br>
+    slashmod, &quot;/mod&quot;<br>
+    mod, &quot;mod&quot;<br>
+    greaternumber, &quot;&gt;number&quot;<br>
+    dplus, &quot;d+&quot;<br>
+    dnegate, &quot;dnegate&quot;<br>
+    dzeroless, &quot;d0&lt;&quot;<br>
+    dminus, &quot;d-&quot;<br>
+    dzeroequal, &quot;d0=&quot;<br>
+    dtwostar, &quot;d2*&quot;<br>
+    dtwoslash, &quot;d2/&quot;<br>
+    dmax, &quot;dmax&quot;<br>
+    dmin, &quot;dmin&quot;<br>
+    max, &quot;max&quot;<br>
+    min, &quot;min&quot;<br>
+    negate, &quot;negate&quot;<br>
+    hold, &quot;hold&quot;<br>
+    sign, &quot;sign&quot;<br>
+    pounds, &quot;#s&quot;<br>
+    pound, &quot;#&quot;<br>
+    lesspound, &quot;&lt;#&quot;<br>
+    poundgreater, &quot;#&gt;&quot;<br>
+    <br>
+    <strong>Value testing&nbsp; words</strong><br>
+    <br>
+    lessthan, &quot;&lt;&quot;<br>
+    ulessthan, &quot;u&lt;&quot;<br>
+    notequal, &quot;&lt;&gt;&quot;<br>
+    equal, &quot;==&quot;<br>
+    equal, &quot;=&quot; // note definition of ==<br>
+    greaterthan, &quot;&gt;&quot;<br>
+    zeroless, &quot;0&lt;&quot;<br>
+    zeroequal, &quot;0=&quot;<br>
+    zerogreater, &quot;0&gt;&quot;<br>
+    zeronot, &quot;0&lt;&gt;&quot;<br>
+    greaterthanequal, &quot;&gt;=&quot;<br>
+    lessthanequal, &quot;&lt;=&quot;<br>
+    within, &quot;within&quot;<br>
+    true, &quot;true&quot;<br>
+    false, &quot;false&quot;<br>
+    <br>
+    <strong>Varius string memory and array words</strong><br>
+    <br>
+    stringcopy, &quot;str=&quot;<br>
+    stringplus, &quot;str+&quot;<br>
+    stringequal, &quot;str==&quot;<br>
+    substring, &quot;substr&quot;<br>
+    stringvariable, &quot;string&quot;<br>
+    stringtocstr, &quot;str&gt;cstr&quot;<br>
+    cstrtostring, &quot;cstr&gt;str&quot;<br>
+    chararray, &quot;char[]:&quot;<br>
+    chararraylen, &quot;char[]_len&quot;<br>
+    deletechararray, &quot;delchar[]&quot;<br>
+    strcpy, &quot;strcpy&quot;<br>
+    strncpy, &quot;strncpy&quot;<br>
+    memcpy, &quot;memcpy&quot;<br>
+    memset, &quot;memset&quot;<br>
+    memsize, &quot;msize&quot;<br>
+    bl, &quot;bl&quot;<br>
+    squote, &quot;s\&quot;&quot;, immediate<br>
+    cquote, &quot;c\&quot;&quot;, immediate<br>
+    source, &quot;source&quot;<br>
+    space, &quot;space&quot;<br>
+    spaces, &quot;spaces&quot;<br>
+    greaterin, &quot;&gt;in&quot;<br>
+    fill, &quot;fill&quot;<br>
+    move, &quot;move&quot;<br>
+    <br>
+    <strong>Debug words</strong><br>
+    <br>
+    traceon, &quot;traceon&quot;<br>
+    traceoff, &quot;traceoff&quot;<br>
+    addtrace, &quot;addtrace&quot;<br>
+    dot_s, &quot;.s&quot;<br>
+    <br>
+    <strong>Forth structure words</strong><br>
+    <br>
+    structure, &quot;structure:&quot;<br>
+    createinstance, &quot;new-structure&quot;<br>
+    Nchar, &quot;+char&quot;<br>
+    Nshort, &quot;+short&quot;<br>
+    Nlong, &quot;+long&quot;<br>
+    Narraylong, &quot;+long[]&quot;<br>
+    Narrayshort, &quot;+short[]&quot;<br>
+    Narrayobjects, &quot;+object[]&quot;<br>
+    endstructure, &quot;structure;&quot;<br>
+    <br>
+    <strong>System call words</strong><br>
+    <br>
+    ReadEntireFile, &quot;ReadEntireFile&quot;<br>
+    include, &quot;include&quot;<br>
+    timeanddate, &quot;time&amp;date&quot;<br>
+    find, &quot;find&quot;<br>
+    <br>
+    <strong>Vocabulary and compile control words</strong><br>
+    <br>
+    tic, &quot;'&quot;<br>
+    execute, &quot;execute&quot;<br>
+    decompile, &quot;decompile&quot;<br>
+    immediate, &quot;immediate&quot;, immediate<br>
+    forth, &quot;forth&quot;, immediate<br>
+    vocabulary, &quot;vocabulary&quot;, immediate<br>
+    definitions, &quot;definitions&quot;, immediate<br>
+    literal, &quot;literal&quot;, immediate<br>
+    vocquery, &quot;is-in-voc&quot;<br>
+    leftbracket, &quot;[&quot;, immediate<br>
+    rightbracket, &quot;]&quot;, immediate<br>
+    bracketticbracket, &quot;[']&quot;, immediate<br>
+    release, &quot;release&quot;<br>
+    evaluate, &quot;evaluate&quot;<br>
+    <br>
+    <strong>Char Size words</strong><br>
+    <br>
+    cell, &quot;cell&quot;<br>
+    cellplus, &quot;cell+&quot;<br>
+    cells, &quot;cells&quot;<br>
+    chars, &quot;chars&quot;<br>
+    charplus, &quot;char+&quot;<br>
+    bracketcharbracket, &quot;[char]&quot;, immediate<br>
+    char, &quot;char&quot;<br>
+    <br>
+    <strong>Floating point support</strong> (using seperate floating point stack)<br>
+    <br>
+    ftimes, &quot;f*&quot;<br>
+    fplus, &quot;f+&quot;<br>
+    fminus, &quot;f-&quot;<br>
+    fdivide, &quot;f/&quot;<br>
+    dtof, &quot;d&gt;f&quot;<br>
+    ftod, &quot;f&gt;d&quot;<br>
+    fzeroless, &quot;f0&lt;&quot;<br>
+    fzeroequal, &quot;f0=&quot;<br>
+    fless, &quot;f&lt;&quot;<br>
+    flessequal, &quot;f&lt;=&quot;<br>
+    fgreater, &quot;f&gt;&quot;<br>
+    fgreaterequal, &quot;f&gt;=&quot;<br>
+    fdrop, &quot;fdrop&quot;<br>
+    fdup, &quot;fdup&quot;<br>
+    fnip, &quot;fnip&quot;<br>
+    froll, &quot;froll&quot;<br>
+    fpick, &quot;fpick&quot;<br>
+    fover, &quot;fover&quot;<br>
+    frot, &quot;frot&quot;<br>
+    freverserot, &quot;-frot&quot;<br>
+    ftuck, &quot;ftuck&quot;<br>
+    fpower, &quot;f**&quot;<br>
+    fabs, &quot;fabs&quot;<br>
+    facos, &quot;facos&quot;<br>
+    fcosh, &quot;fcosh&quot;<br>
+    fcos, &quot;fcos&quot;<br>
+    fasin, &quot;fasin&quot;<br>
+    fsin, &quot;fsin&quot;<br>
+    fsincos, &quot;fsincos&quot;<br>
+    fsinh, &quot;fsinh&quot;<br>
+    fatan, &quot;fatan&quot;<br>
+    ftan, &quot;ftan&quot;<br>
+    ftanh, &quot;ftanh&quot;<br>
+    fatan2, &quot;fatan2&quot;<br>
+    fexp, &quot;fexp&quot;<br>
+    fln, &quot;fln&quot;<br>
+    flog, &quot;flog&quot;<br>
+    sqrt, &quot;fsqrt&quot;<br>
+    fdot, &quot;f.&quot;<br>
+    fmin, &quot;fmin&quot;<br>
+    fmax, &quot;fmax&quot;<br>
+    fnegate, &quot;fnegate&quot;<br>
+    <br>
+    <strong>Forth class defining words</strong><br>
+    <br>
+    DashRightGreater, &quot;-&gt;&quot;, immediate<br>
+    DashDot, &quot;-:&quot;, immediate<br>
+    class, &quot;class:&quot;, immediate<br>
+    This, &quot;this&quot;<br>
+    MethodSemicolon, &quot;m;&quot;, immediate<br>
+    MethodColon, &quot;m:&quot;, immediate<br>
+    EnclosedByte, &quot;[byte]&quot;, immediate<br>
+    EnclosedBytes, &quot;[bytes]&quot;, immediate<br>
+    EnclosedWord, &quot;[word]&quot;, immediate<br>
+    EnclosedWords, &quot;[words]&quot;, immediate<br>
+    EnclosedDWord, &quot;[dword]&quot;, immediate<br>
+    EnclosedDWords, &quot;[dwords]&quot;, immediate<br>
+    EnclosedPointer, &quot;[pointer]&quot;, immediate<br>
+    EnclosedPointers, &quot;[pointers]&quot;, immediate<br>
+    EnclosedArrays, &quot;[arrays]&quot;, immediate<br>
+    EnclosedClass, &quot;[class]&quot;, immediate<br>
+    EnclosedClasses, &quot;[classes]&quot;, immediate<br>
+    endclass, &quot;class;&quot;, immediate<br>
+    publiccolon, &quot;public:&quot;, immediate<br>
+    privatecolon, &quot;private:&quot;, immediate<br>
+    protectedcolon, &quot;protected:&quot;, immediate<br>
+    DecompileClass, &quot;(decompile)-class&quot;, immediate<br>
+    ColonEqual, &quot;:=&quot;, immediate<br>
+    NewClass, &quot;new&quot;<br>
+    DeleteClass, &quot;delete&quot;<br>
+    state, &quot;state&quot;<br>
+    <br>
+    </p>
+  </li>
+</ol>
+&nbsp;<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+
+<h5><!--mstheme--><font color="#660033">[_Zen_Soft]&nbsp; is a trademark of [_Zen_Soft]. All other products mentioned are
+registered trademarks or trademarks of their respective companies.<br>
+<br>
+Questions or problems regarding this web site should be directed to
+[scuddersaul@earthlink.com].<br>
+Copyright © 2000[_Zen_Soft]. All rights reserved.<br>
+Last modified: Monday June 26, 2000.<!--mstheme--></font></h5>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

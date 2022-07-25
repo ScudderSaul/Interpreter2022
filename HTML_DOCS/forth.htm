@@ -1,0 +1,1392 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Forth Documentation</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="expeditn 001, default"><meta name="Microsoft Border" content="tlb, default"></head>
+
+<body background="_themes/expeditn/exptextb.jpg" bgcolor="#FFFFFF" text="#000000" link="#006600" vlink="#669966" alink="#990000"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<h1>_Zen_Soft Forth Interpreter</h1>
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<p>&nbsp;</p>
+<!--mstheme--></font></td><td valign="top" width="24"></td><!--msnavigation--><td valign="top"><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<p>&nbsp;</p>
+
+<p><big>Forth Language words</big> <br>
+The Forth language version defined in the files codeelemnt.cpp and codeelement.h is a
+partial <br>
+implementation of the Forth ANSI standard. It is recommended that a copy of the ANSI
+standard document <br>
+or a good Forth text book be used to learn Forth. This page will only list the words
+defined and describe <br>
+some differences from the standard. <br>
+It will also describe the way object oriented classes have been added to the
+implementation. <br>
+<br>
+<strong><font color="#008000">//+---------------------------------------------------------------------------------------+<br>
+//The files codeelement.h and codeelement.cpp are copyright (c) 1999 2000 2001 2002
+2003 2004 by Saul Scudder<br>
+//They are distributed for non-profit use as freeware and no warranty is given with the
+use of<br>
+//this source for any purpose whatsoever.<br>
+//This copyright notice is to remain unmodified in the source file<br>
+//A license for commercial use of all of the _Zen_Soft programmers tools may be obtained
+by sending<br>
+//a check for $10.00 to <br>
+//_Zen_Soft c/o <br>
+//Saul Scudder<br>
+//358 E Whitton Ave.<br>
+//Phoenix AZ 85012<br>
+//+---------------------------------------------------------------------------------------+</font><br>
+</strong><br>
+<strong>Differences and bugs</strong><br>
+As this version of Forth defines words as c++ objects with a collection of elements that
+may be primitives or pointers to other forth words. The concept of a &quot;here&quot; in a
+dictionary is not used. <br>
+Thus sequences of code like <br>
+<br>
+&nbsp;&nbsp;&nbsp; here 4 allot<br>
+<br>
+must be replaced with other sequences such as<br>
+<br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; create</font> name 4 <font color="#0080FF">allot
+;create</font><br>
+<br>
+Also this is a lower case Forth <br>
+<br>
+&nbsp;&nbsp;&nbsp; i.e. DUP becomes <font color="#0080FF">dup</font><br>
+<br>
+Some incorrect results with negative loop indices have been observed.<br>
+Be careful of integer overflow, sizes and bounds<br>
+the word &quot;evaluate&quot; may not work as expected<br>
+<br>
+This version of forth is distributed as source code with minimal editing or run time
+support. It is intended to be used to add language or scripting capacity to other programs
+or projects and not as a stand alone forth system.<br>
+<br>
+<big>Forth extensions</big><br>
+Floating point support and a separate floating point stack have been implemented.<br>
+An auilary stack has been implemented.<br>
+Structure data types exist<br>
+Some unique string manipulation words exist<br>
+Memory managment has been implemented. (see the c++ source)<br>
+Object oriented programming is supported with by Forth Classes, classes, methods,
+constructors, <br>
+destructors,inheritance and public and private are supported. (see the included
+testclass.4th Forth source for examples of class usage) <br>
+<br>
+Example :<br>
+<font color="#0080FF">class:</font> goomb <font color="#804040">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\\ declare class type</font><br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; [dword] </font>anw <font color="#804040">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\\ declare data elements some public and some private</font><br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; [dword]</font> bnw<br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; [dword]</font> cnw<br>
+-public:<br>
+&nbsp;&nbsp; <font color="#0080FF">[dword] </font>anw2<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">[dword]</font> bnw2<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">[dword]</font> cnw2<br>
+<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m:</font> Anw@ anw <font color="#0080FF">@ m; </font><font color="#804040">\\ add methods</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m:</font> Anw! anw <font color="#0080FF">! m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m: </font>Bnw@ bnw <font color="#0080FF">@ m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m: </font>Bnw! bnw <font color="#0080FF">! m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m: </font>Cnw@ cnw <font color="#0080FF">@ m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m: </font>Cnw! cnw <font color="#0080FF">! m;</font><br>
+<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m: </font>SumAB 1 Anw! 1 Bnw! Anw@ Bnw@ + dup .
+Cnw! Cnw@ <font color="#0080FF">. cr m;</font><br>
+<font color="#0080FF">class;</font> <font color="#804040">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\\finish Forth class declaration</font><br>
+<br>
+goomb pulah <font color="#804040">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\\ create a class instance named &quot;pulah&quot;</font><br>
+pulah -: SumAB
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#804040">\\ execute the method SumAB</font><br>
+(decompile)-class goomb&nbsp;&nbsp;&nbsp; <font color="#804040">\\ decompile the class</font><br>
+: umber pulah -: SumAB ;&nbsp;&nbsp;&nbsp; <font color="#804040">\\ compile a method into
+a Forth word</font><br>
+<br>
+<font color="#0080FF">class:</font> goomb2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#804040">\\ declare another class type</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">[dword]</font> mule<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">[class]</font> goomb truel
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#804040">\\ this class contains a class instance</font><br>
+<font color="#0080FF">public:</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">[dword]</font> mule2<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">[class]</font> goomb truel2<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m:</font> Intrule 2 truel <font color="#0080FF">-:
+</font>Anw! 2 truel<font color="#0080FF"> -:</font> Bnw! 1 mule <font color="#0080FF">! m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m:</font> Usetruel truel <font color="#0080FF">-:
+</font>Anw@ truel <font color="#0080FF">-:</font> Bnw@ mule <font color="#0080FF">@ + + .
+&quot;</font> result of goomb2 Usetrue1&quot; <font color="#0080FF">printstring cr m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m:</font> Intrule2 2 truel2 <font color="#0080FF">-:
+</font>anw2 ! 2 truel2 <font color="#0080FF">-: </font>bnw2 ! 1 mule2 <font color="#0080FF">! m;</font><br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m:</font> Usetruel2 truel2<font color="#0080FF">
+-:</font> anw2 <font color="#0080FF">@ </font>truel2<font color="#0080FF"> -:</font> bnw2 <font color="#0080FF">@ </font>mule2 <font color="#0080FF">@ + + . &quot;</font> result of
+goomb2 Usetrue12&quot; <font color="#0080FF">printstring cr m;</font><br>
+<font color="#0080FF">class;&nbsp;&nbsp; </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#804040">\\ end class with class;</font><br>
+<br>
+<font color="#0080FF">class:</font> hoomw <font color="#0080FF">public: := </font>goomb
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#804040">\\ this class
+inherits goomb as a public parent</font><br>
+<font color="#0080FF">private: </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#804040">\\ make them private after public: inherit</font><br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; [dword] </font>Adw<br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; [class]</font> goomb acl<br>
+<font color="#0080FF">public:</font><br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; m: </font>tcn1 5 hoomw::goomb <font color="#0080FF">-: </font>Anw! <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 hoomw<font color="#0080FF">::</font>goomb <font color="#0080FF">-:</font> Bnw! <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 hoomw<font color="#0080FF">::</font>goomb <font color="#0080FF">-:</font> Cnw! <br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; m; </font><br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; m: </font>tcn2 hoomw<font color="#0080FF">::</font>goomb
+-: Anw@ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hoomw<font color="#0080FF">::</font>goomb <font color="#0080FF">-:</font> Bnw@ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hoomw<font color="#0080FF">::</font>goomb<font color="#0080FF"> -: </font>Cnw@ <br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + + . cr <br>
+&nbsp;&nbsp;&nbsp; m; </font><br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; m: </font>tcn3 6 Anw! <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 Bnw! 6 Cnw! <br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m;</font> <br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; m:</font> tcn4 7 Anw! <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 Bnw! 7 Cnw! <br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">m; <br>
+class;</font><br>
+<br>
+--------- <big>FORTH Primitives Glossery</big>
+-------------------------------------------------<br>
+<u><strong>Format</strong></u><br>
+Name &quot;<font color="#0080FF">forth-name</font>&quot; ( stack-diagram ) &lt;immediate |
+blank &gt; <br>
+&nbsp;&nbsp;&nbsp; <strong><font color="#8000FF">word description</font></strong><br>
+<br>
+<u><strong>Defining words</strong></u><br>
+<br>
+colon, &quot;<font color="#0080FF">:</font>&quot;, ( &lt;name&gt; --- ) immediate<br>
+&nbsp; <font color="#8000FF">&nbsp; <strong>starts a forth word definition</strong></font><br>
+&nbsp;&nbsp;&nbsp; <strong><font color="#800040">example:</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">: </font>moo 2 2 <font color="#0080FF">+ ;</font><br>
+semicolon, &quot;<font color="#0080FF">;</font>&quot;, ( -- ) immediate<br>
+&nbsp;&nbsp; <font color="#8000FF"><strong>ends a forth word definiotion</strong></font><br>
+&nbsp;&nbsp;&nbsp; See : example :<br>
+constant, &quot;<font color="#0080FF">constant</font>&quot; ( n &lt;name&gt; --- )<br>
+&nbsp;&nbsp; <strong><font color="#8000FF">defines a named forth constant</font></strong><br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 <font color="#0080FF">constant </font>two<br>
+variable, &quot;<font color="#0080FF">variable</font>&quot; ( n &lt;name&gt; --- )<br>
+&nbsp;&nbsp;&nbsp; <strong><font color="#8000FF">defines a named forth variable, note that
+the initialization values on the forth stack differs from the standard<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 <font color="#0080FF">variable</font> amount<br>
+create, &quot;<font color="#0080FF">create</font>&quot; ( &lt;name&gt; --- )<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong><font color="#8000FF">creates a named variable sized
+region in memory, needs an </font><font color="#0080FF">;create </font><font color="#8000FF">or </font><font color="#0080FF">does&gt;</font><font color="#8000FF">,
+this differs from the standard<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">create </font>home 27 <font color="#0080FF">allot ;create</font><br>
+endcreate, &quot;<font color="#0080FF">;create</font>&quot; ( --- )<br>
+<strong><font color="#8000FF">ends a create definition if </font><font color="#0080FF">does&gt;</font><font color="#8000FF"> is not used<br>
+</font></strong>allot, &quot;<font color="#0080FF">allot</font>&quot; ( n --- )<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; allocates memory for a named forth word
+defined using the word create<br>
+</font></strong>&nbsp;&nbsp;&nbsp; See the create example<br>
+rundoes, &quot;<font color="#FF0080">rundoes&gt;</font>&quot;, ( --- addr ) immediate<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>does, &quot;<font color="#0080FF">does&gt;</font>&quot;, ( --- addr )
+immediate<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; allows appending of forth code to a word
+defined with create<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> mcre<font color="#0080FF"> create </font>100 <font color="#0080FF">allot does&gt;</font> 10 <font color="#0080FF">+ ;</font><br>
+postpone, &quot;postpone&quot;, immediate<br>
+<strong>&nbsp;&nbsp;&nbsp; <font color="#8000FF">&lt;&lt;&lt;Not implemented
+properly&gt;&gt;&gt; bug</font><br>
+</strong>state, &quot;<font color="#0080FF">state</font>&quot; ( ---addr )<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; a variable containing true if compiling
+false if executing a word<br>
+</font></strong><br>
+<u><strong>Comment words</strong></u><br>
+<br>
+Comment, &quot;<font color="#0080FF">(</font>&quot;, ( --- ) immediate<br>
+&nbsp;&nbsp;&nbsp; Example:<br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (</font> this is a
+comment )<br>
+CppComment, &quot;<font color="#0080FF">//</font>&quot;, ( --- )immediate<br>
+&nbsp;&nbsp;&nbsp; Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">//</font> This is a
+comment<br>
+ForthComment, &quot;<font color="#0080FF">\\</font>&quot;, ( --- ) immediate<br>
+&nbsp;&nbsp;&nbsp; Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">\\</font> This is a
+comment<br>
+<br>
+<u><strong>Output words</strong></u><br>
+<br>
+quote, &quot;<font color="#0080FF">&quot;</font>&quot;, compiling -( cccccccc ccc
+&quot;&gt; --- ) ( runtime-( --- string ) immediate<br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">&quot;</font> I am a
+string &quot; <font color="#0080FF">printstring</font> <font color="#0080FF">cr</font> <br>
+dotquote, &quot;<font color="#0080FF">.&quot;</font>&quot;, compiling-( cccccccc ccc
+&quot;&gt; --- ) runtime-( --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; complies a string delimited by an ending
+&quot; at runtime the string is printed<br>
+</strong></font>dot, &quot;<font color="#0080FF">.</font>&quot; ( n --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints a number from the forth stack<br>
+</strong></font>udot, &quot;<font color="#0080FF">u</font>.&quot; ( u --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints an unsigned number from the forth
+stack<br>
+</strong></font>ddot , &quot;<font color="#0080FF">d.</font>&quot; (n n --- )<br>
+&nbsp;&nbsp;&nbsp; <strong><font color="#8000FF">prints an double number from the forth
+stack</font></strong><br>
+dudot , &quot;<font color="#0080FF">du.</font>&quot; (u u --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints an unsigned double number from the
+forth stack<br>
+</strong></font><font color="#000000">emit,</font><font color="#8000FF"><strong> </strong></font>&quot;<font color="#0080FF">emit</font>&quot; ( c --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints an ASCII char from the value on
+the forth stack<br>
+</strong></font>nop, &quot;nop&quot; ( --- )<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">nop </font><font color="#8000FF"><strong>means
+&quot;no operation&quot; I.E. dies nothing</strong></font><br>
+CR, &quot;<font color="#0080FF">cr</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; emits a carriage return<br>
+</strong></font>printstring, &quot;<font color="#0080FF">printstring</font>&quot; ( string
+--- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints a string created with &quot; <br>
+</strong></font>type, &quot;<font color="#0080FF">type</font>&quot; ( addr cnt --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints a string from the address and
+count on the forth stack<br>
+</strong></font>count, &quot;<font color="#0080FF">count</font>&quot; ( addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; converts a forth counted string from the
+address given to both address and count<br>
+</strong></font>word, &quot;<font color="#0080FF">word</font>&quot; ( c1
+&lt;cccccc&gt;&lt;c1&gt; --- c-addr )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the address of a forth counted
+string containing the word cccccc as delimited by cl<br>
+</strong></font><br>
+<u><strong>Control words (those starting with &quot;run&quot; like runif or runbegin are
+generated for internal Forth use only)<br>
+</strong></u><br>
+runif, &quot;runif&quot; ( t | f --- )<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>if, &quot;<font color="#0080FF">if</font>&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> tst-depth <font color="#0080FF">depth if &quot;</font> Unclean stack &quot; <font color="#0080FF">else
+&quot; </font>OK &quot; t<font color="#0080FF">hen printstring cr ;</font> <br>
+runelse, &quot;runelse&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>else, &quot;<font color="#0080FF">else</font>&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; See &quot;if&quot; example<br>
+runthen, &quot;runthen&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>then, &quot;<font color="#0080FF">then</font>&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; See &quot;if&quot; example<br>
+runbegin, &quot;runbegin&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>begin, &quot;begin&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> hoog 1 begin 1 <font color="#0080FF">+ dup</font> 10 &gt; <font color="#0080FF">until &quot;</font> the output
+was &quot; <font color="#0080FF">printstring . ;</font><br>
+rununtil, &quot;rununtil&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>until, &quot;until&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; See begin example<br>
+rundo, &quot;rundo&quot;<br>
+do, &quot;<font color="#0080FF">do</font>&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">: </font>testloop 0 10 0 <font color="#0080FF">do </font>1 + <font color="#0080FF">dup . loop . ;</font><br>
+runloop, &quot;runloop&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>loop, &quot;<font color="#0080FF">loop</font>&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; See do example<br>
+runiinloop, &quot;runi&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>iinloop, &quot;<font color="#0080FF">i</font>&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Places the inner loop index on the forth
+stack<br>
+</strong></font>runjinloop, &quot;runj&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>jinloop, &quot;<font color="#0080FF">j</font>&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Places the loop index from the loop just
+out from the innermost <br>
+&nbsp;&nbsp;&nbsp; loop on the forth stack<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> drool <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 0 <font color="#0080FF">do</font> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5 0 <font color="#0080FF">do <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+i j * . <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+loop cr <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop cr <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;</font><br>
+runleave, &quot;runleave&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>leave, &quot;leave&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; causes an exit from a do loop<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">: </font>iiiool 10 0 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">do
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+i dup .</font> 7 <font color="#0080FF">== <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+i . <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+leave <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+then <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cr <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;</font><br>
+runplusloop, &quot;+runloop&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>plusloop, &quot;<font color="#0080FF">+loop</font>&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; like loop but the number on the forth
+stack is added to the loop index<br>
+&nbsp;&nbsp;&nbsp; and removed from the forth stack, when the index passes the loop limit
+the loop <br>
+&nbsp;&nbsp;&nbsp; is exited.<br>
+</strong></font>&nbsp;&nbsp;&nbsp; Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> nooot 20 0 <font color="#0080FF">do i . </font>2 <font color="#0080FF">+loop </font>cr ;<br>
+runquestiondo, &quot;?rundo&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>questiondo, &quot;<font color="#0080FF">?do</font>&quot;, immediate<br>
+<br>
+rununloop, &quot;rununloop&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>unloop, &quot;<font color="#0080FF">unloop</font>&quot;, immediate<br>
+<strong><font color="#8000FF">discard the loop paramaters for the current nesting level. </font><font color="#0080FF">unloop </font><font color="#8000FF">must be used before </font><font color="#0080FF">exit</font><font color="#8000FF"> is used.<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> testule 10 0 <font color="#0080FF">do i . </font>10 0 <font color="#0080FF">do i dup . </font>5<font color="#0080FF"> == if unloop unloop exit then loop cr loop ;</font><br>
+runwhile, &quot;runwhile&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>while, &quot;<font color="#0080FF">while</font>&quot;, immediate<br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> tbwr <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">begin</font>
+3 <font color="#0080FF">+ dup . <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+dup</font> 20 <font color="#0080FF">&lt; dup .<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while dup </font>10 <font color="#0080FF">+ .
+cr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repeat . cr ;</font><br>
+runrepeat, &quot;runrepeat&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>repeat, &quot;repeat&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; See while example<br>
+</strong></font>runagain, &quot;runagain&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>again, &quot;<font color="#0080FF">again</font>&quot;, immediate<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; a </font><font color="#0080FF">begin</font><font color="#8000FF"> ... </font><font color="#0080FF">again </font><font color="#8000FF">loop
+does not exit unless a word like exit is used inside.<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">: </font>testex <font color="#0080FF">begin</font> 20 0 <font color="#0080FF">do</font> 10 0 <font color="#0080FF">do j dup . </font>7 <font color="#0080FF">== if exit then loop cr loop
+again ;</font><br>
+runcase, &quot;runcase&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>case, &quot;case&quot;, immediate<br>
+example:<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> casetest 10 0 <font color="#0080FF">do i
+dup . <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case </font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 <font color="#0080FF">of
+i</font> 10 <font color="#0080FF">+ . endof</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 <font color="#0080FF">of
+i </font>10 <font color="#0080FF">+ . endof</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 <font color="#0080FF">of
+i </font>10 <font color="#0080FF">+ . endof</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 <font color="#0080FF">+ . <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; endcase cr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+loop ;</font><br>
+runof, &quot;runof&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>of, &quot;<font color="#0080FF">of</font>&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; See case example<br>
+</strong></font>runendof, &quot;runendof&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>endof, &quot;<font color="#0080FF">endof</font>&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; See case example<br>
+</strong></font>runendcase, &quot;runendcase&quot;<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>endcase, &quot;endcase&quot;, immediate<br>
+See case example<br>
+runexit, &quot;runexit&quot;, immediate<br>
+<strong><font color="#8000FF">not a user word, added to compiled code by the compiler<br>
+</font></strong>exit, &quot;<font color="#0080FF">exit</font>&quot;, ( --- ) immediate <br>
+<strong><font color="#8000FF">exit the current word, inside a loop </font><font color="#0080FF">unloop</font><font color="#8000FF"> should be called first<br>
+</font></strong>recurse, &quot;<font color="#0080FF">recurse</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; execute the current definition from
+inside the current definition<br>
+</strong></font>quit, &quot;<font color="#0080FF">quit</font>&quot; ( -- ) r: ( x*n -- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; empty the return stack, begin
+interpretation from the terminal input<br>
+</strong></font>bye, &quot;<font color="#0080FF">bye</font>&quot; ( -- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; exit from forth<br>
+</strong></font><br>
+<u><strong>Stack words<br>
+</strong></u><br>
+stackdepth, &quot;<font color="#0080FF">depth</font>&quot; ( --- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; retuns the depth of the forth stack<br>
+</strong></font>drop, &quot;<font color="#0080FF">drop</font>&quot; ( n --- )<br>
+<font color="#8000FF">&nbsp;&nbsp;&nbsp; removes one entry from the forth stack<br>
+</font>over, &quot;<font color="#0080FF">over</font>&quot; ( n1 n2 --- n1 n2 n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copies the second item on the stack to
+the stack top<br>
+</strong></font>swap, &quot;<font color="#0080FF">swap</font>&quot; ( n1 n2 --- n2 n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; swaps the first and second items on the
+forth stack<br>
+</strong></font>dup, &quot;<font color="#0080FF">dup</font>&quot; ( n1 --- n1 n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; duplicates the top item on the forth
+stack<br>
+</strong></font>questiondup, &quot;<font color="#0080FF">?dup</font>&quot; <br>
+<font color="#0080FF"><strong>&nbsp;&nbsp;&nbsp; duplicates the top item on the forth
+stack when it is not zero<br>
+</strong></font>rot, &quot;<font color="#0080FF">rot</font>&quot; ( n1 n2 n3 --- n2 n3 n1
+)<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; rotates the third item on the forth stack
+to the stack top <br>
+</font></strong>rpush, &quot;<font color="#0080FF">&gt;r</font>&quot; ( n --- ) r:( --- n
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; moves a number on the forth stack to the
+return stack<br>
+</strong></font>rpop, &quot;<font color="#0080FF">r&gt;</font>&quot; r:( n --- ) ( --- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; moves a number on the return stack to the
+forth stack<br>
+</strong></font>rfetch, &quot;<font color="#0080FF">r@</font>&quot; ( --- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copies a number from the return stack to
+the forth stack<br>
+</strong></font>nip, &quot;<font color="#0080FF">nip</font>&quot; ( n1 n2 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; removes the number second from the top of
+the forth stack<br>
+</strong></font>pick, &quot;<font color="#0080FF">pick</font>&quot; ( n1 n2 ... u --- n1
+n2 n3 ... n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copies the number in the u position on
+the forth stack to the stack top<br>
+</strong></font>tuck, &quot;<font color="#0080FF">tuck</font>&quot; ( n1 n2 --- n2 n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copies the number on the top of the forth
+stack to the 3rd position on the stack<br>
+</strong></font>roll, &quot;<font color="#0080FF">roll</font>&quot; ( n n2 ... u --- n2 n3
+... n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; moves the number in the u position on the
+forth stack to the stack top<br>
+</strong></font>reverserot, &quot;<font color="#0080FF">-rot</font>&quot; ( n1 n2 n3 ---
+n3 n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; moves the number on top of the forth
+stack to the third position <br>
+</strong></font>twodup, &quot;<font color="#0080FF">2dup</font>&quot; ( n1 n2 --- n1 n2 n1
+n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; duplicates the top two numbers on the
+forth stack<br>
+</strong></font>twodrop, &quot;<font color="#0080FF">2drop</font>&quot; ( n1 n2 --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; drops a double number (two numbers) on
+the forth stack<br>
+</strong></font>twoswap, &quot;<font color="#0080FF">2swap</font>&quot; ( n1 n2 n3 n4 ---
+n3 n4 n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; swaps the top double number (two numbers)
+on the forth stack with the 3rd and 4th numbers<br>
+</strong></font>twoover, &quot;<font color="#0080FF">2over</font>&quot; ( n1 n2 n3 n4 ---
+n1 n2 n3 n4 n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copies the 3rd and 4th entries on the
+forth stack to the 1st and 2nd positions<br>
+</strong></font><br>
+<u><strong>Auxiliary Stack Words (used to operate on the auxiliary stack)</strong></u><br>
+<br>
+auxpop, &quot;<font color="#0080FF">aux&gt;</font>&quot; a:( n --- ) ( --- n )<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; moves a number from the auxiliary stack
+to the forth stack<br>
+</font></strong>auxpush, &quot;<font color="#0080FF">&gt;aux</font>&quot; ( n --- ) a:(
+--- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; moves a number from the forth stack to
+the auxiliary stack<br>
+</strong></font>auxswap, &quot;<font color="#0080FF">auxswap</font>&quot; a:( n1 n2 --- n2
+n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; swap for the auxiliary stack<br>
+</strong></font>auxover, &quot;<font color="#0080FF">auxover</font>&quot; a:( n1 n2 --- n1
+n2 n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; over for the auxiliary stack<br>
+</strong></font>auxdrop, &quot;<font color="#0080FF">auxdrop</font>&quot; a:( n --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; drop for the auxiliary stack<br>
+</strong></font>auxrot, &quot;<font color="#0080FF">auxrot</font>&quot; a:( n1 n2 n3 ---
+n2 n3 n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; rot for the auxiliary stack<br>
+</strong></font>auxreverserot, &quot;<font color="#0080FF">-auxrot</font>&quot; a:( n1 n2
+n3 --- n3 n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; -rot for the auxiliary stack<br>
+</strong></font>auxfetch, &quot;<font color="#0080FF">aux@</font>&quot; ( --- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copies the top number from the auxiliary
+stack to the forth stack<br>
+</strong></font>auxnip, &quot;<font color="#0080FF">auxnip</font>&quot; a:( n1 n2 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; nip for the auxiliary stack<br>
+</strong></font>auxpick, &quot;<font color="#0080FF">auxpick</font>&quot; a:( n1 n2 ... u
+--- n1 n2 n3 ... n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; pick for the auxiliary stack<br>
+</strong></font>auxtuck, &quot;<font color="#0080FF">auxtuck</font>&quot; a:( n1 n2 --- n2
+n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; tuck for the auxiliary stack<br>
+</strong></font>auxroll, &quot;<font color="#0080FF">auxroll</font>&quot; a:( n n2 ... u
+--- n2 n3 ... n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; roll for the auxiliary stack<br>
+</strong></font>auxtwodup, &quot;<font color="#0080FF">aux2dup</font>&quot; a:( n1 n2 ---
+n1 n2 n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; 2dup for the auxiliary stack<br>
+</strong></font>auxtwodrop, &quot;<font color="#0080FF">aux2drop</font>&quot; a:( n1 n2
+--- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; 2drop for the auxiliary stack<br>
+</strong></font><br>
+<u><strong>Address words</strong></u><br>
+<br>
+fetch, &quot;<font color="#0080FF">@</font>&quot; ( addr --- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; replace address on the forth stack with
+the value at that address<br>
+</strong></font>store, &quot;<font color="#0080FF">!</font>&quot; ( n addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; store the number n at the address given
+on the top of the forth stack<br>
+</strong></font>cstore, &quot;<font color="#0080FF">c!</font>&quot; ( c addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; store the byte c at the address given <br>
+</strong></font>cfetch, &quot;<font color="#0080FF">c@</font>&quot; ( addr --- c )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; fetch the byte c from the byte address
+given<br>
+</strong></font>wstore, &quot;<font color="#0080FF">w!</font>&quot; ( w addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; store the 16 bit word at the given
+address<br>
+</strong></font>wfetch, &quot;<font color="#0080FF">w@</font>&quot; ( addr --- w )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; read a 16 bit word from the word address
+given<br>
+</strong></font>plusstore, &quot;<font color="#0080FF">+!</font>&quot; ( n addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add the number second on the forth stack
+to the value at address<br>
+</strong></font>twostore, &quot;<font color="#0080FF">2!</font>&quot; ( n1 n2 addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; store the double number at the given
+address<br>
+</strong></font>twofetch, &quot;<font color="#0080FF">2@</font>&quot; ( addr --- n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; fetch a double number from the given
+address<br>
+</strong></font><br>
+<u><strong>Arithmetic and number words<br>
+</strong></u><br>
+plus, &quot;<font color="#0080FF">+</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add two numbers on the forth stack<br>
+</strong></font>minus, &quot;<font color="#0080FF">-</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; subtract the number at the forth stack
+top from the number second on the stack<br>
+</strong></font>multiply, &quot;<font color="#0080FF">*</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; multiply two numbers on the forth stack<br>
+</strong></font>starslash, &quot;<font color="#0080FF">*/</font>&quot; ( n1 n2 n3 --- n4 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; multiply n1 times n2 and divide the
+double number from the multiplication by n3 to produce n4<br>
+</strong></font>starslashmod, &quot;<font color="#0080FF">*/mod</font>&quot; ( n1 n2 n3
+--- n4 n5)<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; multiply n1 times n2 and divide the
+double number from the multiplication by n3 to produce n5 the quotient and n4 the
+remainder<br>
+</font></strong>divide, &quot;<font color="#0080FF">/</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; divide the second number on the forth
+stack by the number at the top of the stack<br>
+</strong></font>oneplus, &quot;<font color="#0080FF">1+</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add 1 to the number at the stack top<br>
+</strong></font>oneminus, &quot;<font color="#0080FF">1-</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; subtract one from the number at the stack
+top<br>
+</strong></font>twotimes, &quot;<font color="#0080FF">2*</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; multiply the number on top of the forth
+stack by two<br>
+</strong></font>twoplus, &quot;<font color="#0080FF">2+</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add 2 to the number on top of the forth
+stack<br>
+</strong></font>twominus, &quot;<font color="#0080FF">2-</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; subtract 2 from the number on top of the
+forth stack<br>
+</strong></font>twoslash, &quot;<font color="#0080FF">2/</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; divide the number on top of the forth
+stack by 2<br>
+</strong></font>abs, &quot;<font color="#0080FF">abs</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; replace the number on top of the forth
+stack with it's absolute value<br>
+</strong></font>and, &quot;<font color="#0080FF">and</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; perform a binary and between n1 and n2 to
+produce n3 <br>
+</strong></font>not, &quot;<font color="#0080FF">not</font>&quot; ( n1 --- n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; perform a binary not on n1 producing n2<br>
+</strong></font>or, &quot;<font color="#0080FF">or</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; perform a binary or between n1 and n2
+producing n3<br>
+</strong></font>xor, &quot;<font color="#0080FF">xor</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; perform a binary xor between n1 and n2
+producing n3<br>
+</strong></font>rshift, &quot;<font color="#0080FF">rshift</font>&quot; ( u1 u2 --- u3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; shift u1 u2 bit positions right<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 2 <font color="#0080FF">rshift </font><br>
+lshift, &quot;<font color="#0080FF">lshift</font>&quot; ( u1 u2 --- u3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; shift u1 u2 bit positions left<br>
+</strong></font>invert, &quot;<font color="#0080FF">invert</font>&quot; ( u1 --- u2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; invert the bits in u1<br>
+</strong></font>base, &quot;<font color="#0080FF">base</font>&quot; ( --- addr )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the address of the current number
+base<br>
+</strong></font>hex, &quot;<font color="#0080FF">hex</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; set the current number base to
+hexadecimal<br>
+</strong></font>decimal, &quot;<font color="#0080FF">decimal</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; set the current number base to decimal<br>
+</strong></font>octal, &quot;<font color="#0080FF">octal</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; set the current number base to octal<br>
+</strong></font>fmslashmod, &quot;<font color="#0080FF">fm/mod</font>&quot; ( n1 n2 n3 ---
+n3 n4 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; divide the double number represented by
+n1 and n2 by the n3 to produce the remainder n3 and the floored quotient n4 all numbers
+are signed<br>
+</strong></font>smslashrem, &quot;<font color="#0080FF">sm/rem</font>&quot; ( n1 n2 n3 ---
+n3 n4 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; divide the double number represented by
+n1 and n2 by the n3 to produce the remainder n3 and the symmetric quotient n4 all numbers
+are signed<br>
+</strong></font>sTod, &quot;<font color="#0080FF">s&gt;d</font>&quot; ( n --- n1 n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; convert the singel number n to the double
+number n3 n4<br>
+</strong></font>mtimes, &quot;<font color="#0080FF">m*</font>&quot; ( n1 n2 --- n3 n4 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; n3 n4 are the double signed product of n1
+and n2<br>
+</strong></font>umtimes, &quot;<font color="#0080FF">um*</font>&quot; ( u1 u2 --- u3 u4 )<br>
+<strong><font color="#8000FF">multiply u1 times u2 resulting in the unsigned double number
+represented by u3 and u4<br>
+</font></strong>umslashmod, &quot;<font color="#0080FF">um/mod</font>&quot; ( u1 u2 u ---
+u3 u4 )<br>
+<font color="#8000FF"><strong>divide the double number represented by u1 and u2 by u
+giving the quotient u4 and the remainder u3<br>
+</strong></font>slashmod, &quot;<font color="#0080FF">/mod</font>&quot; ( n1 n2 --- n3 n4
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; divide n1 by n2 giving the single
+remainder n3 and the quotient n4<br>
+</strong></font>mod, &quot;<font color="#0080FF">mod</font>&quot; ( n1 n2 --- n3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the remainder <br>
+</strong></font>greaternumber, &quot;<font color="#0080FF">&gt;number</font>&quot; ( ud1
+c-addr u1 --- ud2 c_addr u2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; ud2 is the double unsigned result of
+converting the number the address c-addr with length u1 using the current base and adding
+the number to the&nbsp; double ud1 after multiplying ud1 by base<br>
+</strong></font>dplus, &quot;<font color="#0080FF">d+</font>&quot; ( n1 n2 n3 n4 --- n5 n6
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; adds the two double numbers n1 n2 and n2
+n3 to produce the double n5 n6<br>
+</strong></font>dnegate, &quot;<font color="#0080FF">dnegate</font>&quot; ( n1 n2 --- -[n1
+n2] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; negate the double number n1 n2<br>
+</strong></font>dzeroless, &quot;<font color="#0080FF">d0&lt;</font>&quot; ( n1 n2 --- t |
+f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; compare the double number n1 n2 with 0
+and return true if 0 is greater<br>
+</strong></font>dminus, &quot;<font color="#0080FF">d-</font>&quot; ( n1 n2 n3 n4 --- n5
+n6 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; subtract the double number n3 n4 from the
+double number n1 n2 <br>
+</strong></font>dzeroequal, &quot;<font color="#0080FF">d0=</font>&quot; ( n1 n2 --- t | f
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if the double number n1 n2 is equal
+to 0<br>
+</strong></font>dtwostar, &quot;<font color="#0080FF">d2*</font>&quot; ( n1 n2 n3 n4 ---
+n5 n6 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; multiplys the two double numbers n1 n2
+and n2 n3 to produce the double n5 n6 <br>
+</strong></font>dtwoslash, &quot;<font color="#0080FF">d2/</font>&quot; ( n1 n2 n3 n4 ---
+n5 n6 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; divide the double numbers n1 n2 by the
+double number n2 n3 to produce the double n5 n6<br>
+</strong></font>dmax, &quot;<font color="#0080FF">dmax</font>&quot; ( n1 n2 n3 n4 --- n1
+n2 | n3 n4 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the greater of the two double
+numbers<br>
+</strong></font>dmin, &quot;<font color="#0080FF">dmin</font>&quot; ( n1 n2 n3 n4 --- n1
+n2 | n3 n4 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the lesser of the two double
+numbers<br>
+</strong></font>max, &quot;<font color="#0080FF">max</font>&quot; ( n1 n2 --- n1 | n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the maximum of n1 or n2<br>
+</strong></font>min, &quot;<font color="#0080FF">min</font>&quot; ( n1 n2 --- n1 | n2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the minimum of n1 or n1<br>
+</strong></font>negate, &quot;<font color="#0080FF">negate</font>&quot; ( n1 --- -n1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the negative of n1 I.E. -n1<br>
+</strong></font>hold, &quot;<font color="#0080FF">hold</font>&quot; ( c --- )<font color="#8000FF"><strong><br>
+insert a char into the number being formated<br>
+</strong></font>sign, &quot;<font color="#0080FF">sign</font>&quot; ( n --- )<font color="#8000FF"><strong><br>
+if n is negative add a minus sign to the formated number output<br>
+</strong></font>pounds, &quot;<font color="#0080FF">#s</font>&quot; ( u1 u2 --- )<font color="#8000FF"><strong><br>
+convert the rest of the number being formated<br>
+</strong></font>pound, &quot;<font color="#0080FF">#</font>&quot; ( u1 -- u2 )<font color="#8000FF"><strong><br>
+convert one digit of the number being formated by dividing by the contents of base to get
+u2 and the digit n<br>
+</strong></font>lesspound, &quot;<font color="#0080FF">&lt;#</font>&quot; ( --- )<font color="#8000FF"><strong><br>
+begin formating a number as a formated string<br>
+</strong></font>poundgreater, &quot;<font color="#0080FF">#&gt;</font>&quot; ( u1 --- addr
+cnt )<font color="#8000FF"><strong><br>
+drop u1 make the number being formated available as a address and count<br>
+</strong></font><br>
+<u><strong>Value testing words</strong></u><br>
+<br>
+lessthan, &quot;<font color="#0080FF">&lt;</font>&quot; ( n1 n2 --- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return true if n1 is less than n2<br>
+</strong></font>ulessthan, &quot;<font color="#0080FF">u&lt;</font>&quot; ( u1 u2 --- t |
+f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return true if the unsigned number u1 is
+less than the unsigned number u2<br>
+</strong></font>notequal, &quot;<font color="#0080FF">&lt;&gt;</font>&quot; ( n1 n2 --- t
+| f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if n1b is not equal to n1<br>
+</strong></font>equal, &quot;<font color="#0080FF">==</font>&quot; ( n1 n2 --- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if n1 equals n2<br>
+</strong></font>equal, &quot;<font color="#0080FF">=</font>&quot; ( n1 n2 --- t | f ) <font color="#804040">// note definition of</font> <font color="#0080FF">==</font><br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if n1 equals n2<br>
+</strong></font>greaterthan, &quot;<font color="#0080FF">&gt;</font>&quot; ( n1 n2 --- t |
+f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if n is greater than n2<br>
+</strong></font>zeroless, &quot;<font color="#0080FF">0&lt;</font>&quot; ( n --- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if n is less than zero<br>
+</strong></font>zeroequal, &quot;0=&quot; ( n --- t | f )<br>
+&nbsp;&nbsp;&nbsp; <font color="#8000FF"><strong>true if n equals zero</strong></font><br>
+zerogreater, &quot;<font color="#0080FF">0&gt;</font>&quot; ( n --- t | f )<br>
+&nbsp;&nbsp;&nbsp; true if n is greater than zero<br>
+zeronot, &quot;<font color="#0080FF">0&lt;&gt;</font>&quot; ( n --- t | f )<br>
+<font color="#8000FF">&nbsp;&nbsp;&nbsp; true if n is not equal to zero<br>
+</font>greaterthanequal, &quot;<font color="#0080FF">&gt;=</font>&quot; ( n1 n2 --- t | f
+)<br>
+<font color="#8000FF">&nbsp;&nbsp;&nbsp; true if n1 is greater or equal to n2<br>
+</font>lessthanequal, &quot;<font color="#0080FF">&lt;=</font>&quot; ( n1 n2 --- t | f )<br>
+<font color="#8000FF">&nbsp;&nbsp;&nbsp; true if n1 is less than or equal to n2<br>
+</font>within, &quot;<font color="#0080FF">within</font>&quot; ( n1 n2 n3 --- t | f )<br>
+<font color="#8000FF">&nbsp;&nbsp;&nbsp; when n2 &lt; n3 true if n1 &gt;= n2 and n1 &lt;
+n3 <br>
+&nbsp;&nbsp;&nbsp; when n2 &gt; n3 true if n1 &gt;= n2 or n1 &lt; n3<br>
+</font>true, &quot;<font color="#0080FF">true</font>&quot; ( --- t )<br>
+false, &quot;<font color="#0080FF">false</font>&quot; ( --- f )<br>
+<br>
+<u><strong>Various string, memory and array words<br>
+</strong></u><br>
+stringcopy, &quot;<font color="#0080FF">str=</font>&quot; ( &amp;string1 &amp;string2
+---&amp;string1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy a string into another string<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> tests1 <font color="#0080FF">&quot; </font>The rain in Spain &quot;<font color="#0080FF"> ;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> tests2 <font color="#0080FF">&quot; </font>The same in Maine &quot; <font color="#0080FF">;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tests1 tests2 <font color="#0080FF">str=
+printstring cr</font> <br>
+stringplus, &quot;<font color="#0080FF">str+</font>&quot; ( &amp;string1 &amp;string2 ---
+&amp;string1 )<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; append the text of string 2 to string1<br>
+</font></strong>stringequal, &quot;<font color="#0080FF">str==</font>&quot; ( &amp;string1
+&amp;string2 --- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true if the strings are the same<br>
+</strong></font>substring, &quot;<font color="#0080FF">substr</font>&quot; ( &amp;string1
+&amp;string2 startpos length --- &amp;string1)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy the substring in string2 at position
+startpos of length to string1<br>
+</strong></font>stringvariable, &quot;string&quot; ( &amp;string &lt;name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; create a string variable initialized to
+string<br>
+</strong></font>stringtocstr, &quot;str&gt;cstr&quot; ( &amp;string addr --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy the string to the cstr address addr
+as a zero terminated string <br>
+</strong></font>cstrtostring, &quot;<font color="#0080FF">cstr&gt;str</font>&quot; ( addr
+&amp;string --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy the text at the cstr address addr
+into the string <br>
+</strong></font>chararray, &quot;<font color="#0080FF">char[]:</font>&quot; ( n
+&lt;name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; create a char array using the memory
+manager of n bytes<br>
+</strong></font>chararraylen, &quot;<font color="#0080FF">char[]_len</font>&quot; ( addr
+--- n )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; get the length of a char[] at address<br>
+</strong></font>deletechararray, &quot;<font color="#0080FF">delchar[]</font>&quot; ( addr
+--- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; delete a buffer created by char[] <br>
+</strong></font>strcpy, &quot;<font color="#0080FF">strcpy</font>&quot; ( addr1 addr2 ---
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy a zero terminated string from addr2
+to addr1<br>
+</strong></font>strncpy, &quot;<font color="#0080FF">strncpy</font>&quot; ( addr1 addr2 n
+--- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy a zero terminated string from addr2
+to addr1 for n bytes maximum<br>
+</strong></font>memcpy, &quot;<font color="#0080FF">memcpy</font>&quot; ( addr1 addr2 ---
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; copy n bytes from addr2 to addr1<br>
+</strong></font>memset, &quot;<font color="#0080FF">memset</font>&quot; ( addr c len --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; set len bytes at addr to char c<br>
+</strong></font>memsize, &quot;<font color="#0080FF">msize</font>&quot; ( addr --- u )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; put the size alocated by the memory
+manager at address on the forth stack<br>
+&nbsp;&nbsp;&nbsp; addr must have previusly been alocated by the a word that uses the
+memory manager like char[]<br>
+</strong></font>bl, &quot;<font color="#0080FF">bl</font>&quot; ( --- bl )<br>
+<font color="#0080FF"><strong>&nbsp;&nbsp;&nbsp; place a blank character on the forth
+stack<br>
+</strong></font>squote, &quot;<font color="#0080FF">s&quot;</font>&quot;, compile-(
+&lt;cccccc &quot;&gt; --- ) runtime-( --- addr cnt ) immediate<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; compile a string into the current word so
+it's address and count are returned<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> aone <font color="#0080FF">s&quot;</font> one&quot; <font color="#0080FF">type :</font><br>
+cquote, &quot;<font color="#0080FF">c&quot;</font>&quot;, compile-( &lt;cccccc &quot;&gt;
+--- ) runtime-( --- addr ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; compile a counted forth string into the
+current word being defined<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">:</font> atwo <font color="#0080FF">c&quot;</font> two &quot; <font color="#0080FF">count type ; </font><br>
+source, &quot;<font color="#0080FF">source</font>&quot; ( --- addr cnt )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; return the address and count of the
+current source code line being parsed<br>
+</strong></font>space, &quot;<font color="#0080FF">space</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; emit a blank char<br>
+</strong></font>spaces, &quot;<font color="#0080FF">spaces</font>&quot; ( n --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; emit n spaces (blanks)<br>
+</strong></font>greaterin, &quot;<font color="#0080FF">&gt;in</font>&quot; ( --- addr )<br>
+<font color="#8000FF"><strong>addr is the offset from the begining of the input buffer<br>
+</strong></font>fill, &quot;<font color="#0080FF">fill</font>&quot; ( addr cnt c --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; fill addr with cnt bytes with the value c<br>
+</strong></font>move, &quot;<font color="#0080FF">move</font>&quot; ( addr1 addr2 cnt ---
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; move cnt bytes from addr1 to addr2<br>
+</strong></font><br>
+<u><strong>Debug words<br>
+</strong></u><br>
+traceon, &quot;traceon&quot; ( --- )<br>
+&nbsp;&nbsp;&nbsp; turn on tracing<br>
+&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">traceon <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </font>timm 2 <font color="#0080FF">;
+immediate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </font>tlit timm <font color="#0080FF">literal
+2 * . cr ;</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tlit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">traceoff</font><br>
+<font color="#804040">\\after compilation and execution of the above code the trace is in
+the trace file <strong>&quot;interp&lt;number&gt;.txt&quot;</strong> as<br>
+</font><br>
+<font color="#004000">----------TRACE-TURNED_ON----------<br>
+rdepth = 1, sdepth = 0<br>
+---Exited word &quot;traceon&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;:&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;:&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;;&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;;&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;immediate&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;immediate&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;:&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;:&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;timm&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;timm&quot; rdepth = 1, sdepth = 1 Stack: 2 <br>
+Entered word &quot;literal&quot; rdepth = 1, sdepth = 1 Stack: 2 <br>
+---Exited word &quot;literal&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;*&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;*&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;.&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;.&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;cr&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;cr&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;;&quot; rdepth = 1, sdepth = 0<br>
+---Exited word &quot;;&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;tlit&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;*&quot; rdepth = 2, sdepth = 2 Stack: 2 2 <br>
+---Exited word &quot;*&quot; rdepth = 2, sdepth = 1 Stack: 4 <br>
+Entered word &quot;.&quot; rdepth = 2, sdepth = 1 Stack: 4 <br>
+---Exited word &quot;.&quot; rdepth = 2, sdepth = 0<br>
+Entered word &quot;cr&quot; rdepth = 2, sdepth = 0<br>
+---Exited word &quot;cr&quot; rdepth = 2, sdepth = 0<br>
+---Exited word &quot;tlit&quot; rdepth = 1, sdepth = 0<br>
+Entered word &quot;traceoff&quot; rdepth = 1, sdepth = 0<br>
+<br>
+----------DONE_TRACE----------</font><br>
+<br>
+traceoff, &quot;<font color="#0080FF">traceoff</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; turn off tracing<br>
+&nbsp;&nbsp;&nbsp; see traceon example<br>
+</strong></font>addtrace, &quot;<font color="#0080FF">addtrace</font>&quot; ( string --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; inserts a string into the trace output<br>
+</strong></font>dot_s, &quot;<font color="#0080FF">.s</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; displays the forth stack<br>
+</strong></font><br>
+<u><strong>Forth structure words<br>
+</strong></u><br>
+example: <br>
+<font color="#804040">\\ two structure types are defined below<br>
+</font><br>
+<font color="#0080FF">structure:</font> SmallStruct<br>
+&nbsp;&nbsp;&nbsp; 25&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">+char</font>
+Small_name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">+long</font>
+Small_long<br>
+<font color="#80FFFF">s</font><font color="#0080FF">structure;</font><br>
+<br>
+<font color="#0080FF">structure:</font> MyStruct<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 25&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">+char </font>My_name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#0080FF">+long</font> My_long<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#0080FF">+short </font>My_short<br>
+&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">+long[]</font> My_both<br>
+&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmallStruct <font color="#0080FF">+object[]</font>
+My_small<br>
+<font color="#0080FF">structure;</font><br>
+<br>
+<font color="#804040">\\ using the structure type requires creating an instance with
+&quot;new-structure&quot;<br>
+</font><br>
+MyStruct <font color="#0080FF">new-structure</font> <font color="#0080FF">constant</font>
+addr_mine <br>
+<br>
+<font color="#804040">\\ access to elements in the structure is automatic <br>
+</font><br>
+addr_mine My_long ( --- addr of My_Long ) <br>
+<br>
+<font color="#804040">\\ access of arrays in the structure also needs an array index on
+the stack<br>
+</font><br>
+1 addr_mine My_both ( 1 --- addr if My_both[1] ) <font color="#804040">\\ note the ( [ 1]
+) </font><br>
+<br>
+structure, &quot;<font color="#0080FF">structure:</font>&quot; ( &lt;name&gt; -- )<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; starts structure type definition<br>
+</font></strong>Nchar, &quot;<font color="#0080FF">+char</font>&quot; ( n &lt;name&gt; ---
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add n chars to a structure being defined<br>
+</strong></font>Nshort, &quot;<font color="#0080FF">+short</font>&quot; ( &lt;name&gt; ---
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add a short (16 bits) to the structure
+being defined<br>
+</strong></font>Nlong, &quot;<font color="#0080FF">+long</font>&quot; ( &lt;name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add a long (32 bits) to the structure
+being defined<br>
+</strong></font>Narraylong, &quot;<font color="#0080FF">+long[]</font>&quot; ( n
+&lt;name&gt; --- )<br>
+&nbsp;&nbsp;&nbsp; add an array of longs (each 32 bits) to the structure being defined<br>
+Narrayshort, &quot;<font color="#0080FF">+short[]</font>&quot; ( n &lt;name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add an array of shorts (each 16 bits) to
+the structure being defined<br>
+</strong></font>Narrayobjects, &quot;<font color="#0080FF">+object[]</font>&quot; ( n
+&lt;name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; add an array of structures or objects of
+fixed size to the structure being defined<br>
+</strong></font>endstructure, &quot;<font color="#0080FF">structure;</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; end a structure type definition</strong></font><br>
+createinstance, &quot;<font color="#0080FF">new-structure</font>&quot; ( size --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; create a new structure type instance<br>
+</strong></font><br>
+<u><strong>System call words<br>
+</strong></u><br>
+ReadEntireFile, &quot;<font color="#0080FF">ReadEntireFile</font>&quot; ( &amp;string ---
+buffer )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; creates a memory buffer using the forth
+memory manager and reads the entire file into it. The file must exist.<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot; myfile.txt &quot; <font color="#0080FF">ReadEntireFile</font><br>
+include, &quot;<font color="#0080FF">include</font>&quot;<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; creates a memory buffer using the forth
+memory manager and reads the entire file into it.<br>
+&nbsp;&nbsp;&nbsp; The buffer is then pushed onto the forth input stream and parsed<br>
+</font></strong>&nbsp;&nbsp;&nbsp; example<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot; myfile.4th &quot; <font color="#0080FF">include</font>
+<br>
+timeanddate, &quot;<font color="#0080FF">time&amp;date</font>&quot; ( --- n1 n2 n3 n4 n5
+n6 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; The current time and date. n1 is the
+second {0...59}, n2 is the minute {0...59}, n3 is the hour {0...23}, n4 is the day
+{1...31} n5 is the month {1...12}, and n6 is the year (e.g., 1991).<br>
+</strong></font>find, &quot;<font color="#0080FF">find</font>&quot; ( c-addr --- c-addr 0
+| xt 1 | xt -1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; from a name at address return the address
+and 0 if the word is not in the forth dictonary<br>
+&nbsp;&nbsp;&nbsp; the execution token and 1 if the word exists and is immediate<br>
+&nbsp;&nbsp;&nbsp; the execution token and -1 if the word exists and is not immediate<br>
+</strong></font>CreateFile,&nbsp; <font color="#000000">&quot;</font><font color="#0080FF">create-file</font><font color="#000000">&quot;</font>, ( c-addr u fam --- fileid ior )<br>
+OpenFile, &quot;<font color="#0080FF">open-file</font>&quot;, (c-addr u fam --- fileid ior
+)<br>
+FileSize, &quot;<font color="#0080FF">file-size</font>&quot;, (fileid&nbsp; --- ud ior )<br>
+FilePosition, &quot;<font color="#0080FF">file-position</font>&quot;, ( fileid --- ud ior
+)<br>
+ReadFile, &quot;<font color="#0080FF">read-file</font>&quot;, (c-addr u1 fileid&nbsp; ---
+u2 ior )<br>
+CloseFile, &quot;<font color="#0080FF">close-file</font>&quot;, ( fileid --- uir )<br>
+ReadOnly, &quot;<font color="#0080FF">r/o</font>&quot;, ( --- fam )<br>
+ReadWrite, &quot;<font color="#0080FF">r/w</font>&quot;, ( --- fam )<br>
+WriteOnly, &quot;<font color="#0080FF">w/o</font>&quot;, ( --- fam )<br>
+WriteFile, &quot;<font color="#0080FF">write-file</font>&quot;, ( c-addr u1 fileid
+&nbsp; --- u2 ior )<br>
+RepositionFile, &quot;<font color="#0080FF">reposition-file</font>&quot;,&nbsp; ( ud
+fileid --- ior )<br>
+ShowFileError, &quot;<font color="#0080FF">file-error</font>&quot;,&nbsp; ( ior --- )</p>
+
+<p><br>
+<u><strong>Vocabulary and compile control words<br>
+</strong></u><br>
+tic, &quot;<font color="#0080FF">'</font>&quot; ( &lt;forthword&gt; --- addr )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; place the execution address of the forth
+word in the forth stack<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '</font> myforthword (
+--- xt )<br>
+execute, &quot;<font color="#0080FF">execute</font>&quot; ( xt --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; execute the forth word represented by the
+execution token on the stack<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">'</font> myforthword <font color="#0080FF">execute</font><br>
+decompile, &quot;<font color="#0080FF">decompile</font>&quot; ( xt --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; decompile the forth word represented by
+the executuin token on the stack<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp; : tbwr <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">begin </font>3 <font color="#0080FF">+ dup . <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dup </font>20 <font color="#0080FF">&lt; dup .<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while dup </font>10 <font color="#0080FF">+ .
+cr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repeat . cr ;</font><br>
+<br>
+&nbsp;&nbsp;&nbsp; ' tbwr <font color="#0080FF">decompile</font><br>
+<font color="#804040">&nbsp;&nbsp;&nbsp; // the output is<br>
+</font>&nbsp; <font color="#004000">&nbsp; Name: &quot;tbwr&quot;<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 0 is a call to the word runbegin<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 1 is a literal == to 3<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 2 is a call to the word +<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 3 is a call to the word dup<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 4 is a call to the word .<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 5 is a call to the word dup<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 6 is a literal == to 20<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 7 is a call to the word &lt;<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 8 is a call to the word dup<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 9 is a call to the word .<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 10 is a literal == to 18<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 11 is a call to the word runwhile<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 12 is a call to the word dup<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 13 is a literal == to 10<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 14 is a call to the word +<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 15 is a call to the word .<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 16 is a call to the word cr<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 17 is a literal == to 0<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 18 is a call to the word runrepeat<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 19 is a call to the word .<br>
+&nbsp;&nbsp;&nbsp; --&gt;Element 20 is a call to the word cr<br>
+&nbsp;&nbsp;&nbsp; --End-of-decompile---</font>-<br>
+<br>
+immediate, &quot;immediate&quot;, immediate <br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; marks the most recent word defined as
+immediate so it is executed when compiling<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0080FF">: </font>timm 2 ; <font color="#0080FF">immediate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</font> tlit timm <font color="#0080FF">literal
+2 * . cr ;</font><br>
+<br>
+forth, &quot;<font color="#0080FF">forth</font>&quot;, ( --- ) <font color="#0080FF">immediate
+</font><br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; makes forth the context vocabulary <br>
+</strong></font>vocabulary, &quot;<font color="#0080FF">vocabulary</font>&quot;, (
+&lt;name&gt; --- ) <font color="#0080FF">immediate</font><br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; creates a new vocabulary with the name
+&lt;name&gt; , when &lt;name&gt; is executed it will become the <br>
+&nbsp;&nbsp;&nbsp; context vocabulary<br>
+</strong></font>definitions, &quot;<font color="#0080FF">definitions</font>&quot;,
+immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; makes the context vocabulary the current
+vocabulary<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp; <font color="#0080FF">vocabulary </font>roof i<font color="#0080FF">mmediate</font><br>
+&nbsp;&nbsp;&nbsp; roof <font color="#0080FF">definitions</font><br>
+literal, &quot;<font color="#0080FF">literal</font>&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; compiles the number on the stack into the
+current definition so it will be pushed onto the forth stack <br>
+&nbsp;&nbsp;&nbsp; when the definition is executed <br>
+</strong></font>vocquery, &quot;<font color="#0080FF">is-in-voc</font>&quot; ( xt --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints the vocabulary containing the
+execution token of a forth word on the stack<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp; ' peak <font color="#0080FF">is-in-voc cr </font><font color="#804040">\\
+prints roof</font><br>
+leftbracket, &quot;<font color="#0080FF">[</font>&quot;, immediate ( &lt;forth words&gt; )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; when defining a word the code between [
+and ] is executed immediately and not compiled<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ItsAddress <font color="#0080FF">[ </font>start_addr
+12 + ] <font color="#0080FF">literal ;</font><br>
+rightbracket, &quot;]&quot;, ( -- )<font color="#0080FF"> immediate</font><br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; see definition of [<br>
+</strong></font>bracketticbracket, &quot;<font color="#0080FF">[']</font>&quot;, ( xt -- )
+<font color="#0080FF">immediate</font><br>
+&nbsp;&nbsp; <strong><font color="#8000FF">when compiling a word compiles the execution
+token of another word on the forth stack into the current definition. Used to compile
+immediate words into a new forth word</font></strong><br>
+release, &quot;<font color="#0080FF">release</font>&quot; ( &lt;name&gt; -- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Remove a vocabulary from the search list <br>
+</strong></font>evaluate, &quot;<font color="#0080FF">evaluate</font>&quot; ( addr cnt ---
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; attempts to parse the forth code in the
+buffer at address with length cnt<br>
+</strong></font><br>
+<u><strong>Char Size words<br>
+</strong></u><br>
+cell, &quot;<font color="#0080FF">cell</font>&quot; ( --- cellsize )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the size of a long ( 4 )<br>
+</strong></font>cellplus, &quot;<font color="#0080FF">cell+</font>&quot; ( n ---
+n+cellsize )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; adds the size of a long to n<br>
+</strong></font>cells, &quot;<font color="#0080FF">cells</font>&quot; ( n --- n*cellsize)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the size of n longs<br>
+</strong></font>chars, &quot;<font color="#0080FF">chars</font>&quot; ( n --- n*charsize)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; retunrs the size of n chars<br>
+</strong></font>charplus, &quot;<font color="#0080FF">char+</font>&quot; ( n ---
+n+charsize)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; adds the size of one char to n<br>
+</strong></font>bracketcharbracket, &quot;[<font color="#0080FF">char]</font>&quot;, (
+&lt;word&gt; --- c ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; compiles the first character of the next
+word in the input stream into the current definition<br>
+</strong></font>char, &quot;<font color="#0080FF">char</font>&quot;<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; pushes the first char of the next word
+onto the forth stack<br>
+</strong></font><br>
+<u><strong>Floating point support (using separate floating point stack)<br>
+</strong></u><br>
+ftimes, &quot;<font color="#0080FF">f*</font>&quot; f:( f1 f2 --- f3)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; f1 is multiplied by f2 and the result f3
+is placed on the floating point stack<br>
+</strong></font>fplus, &quot;<font color="#0080FF">f+</font>&quot; f:( f1 f2 --- f3)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f1 is added to f2
+and the result f3 is placed on the floating point stack<br>
+</strong></font>fminus, &quot;<font color="#0080FF">f-</font>&quot; f:( f1 f2 --- f3)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; f2 is subtracted from f1 and the result
+f3 is placed on the floating point stack<br>
+</strong></font>fdivide, &quot;<font color="#0080FF">f/</font>&quot; f:( f1 f2 --- f3)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; f1 is divided by f2 and the result f3 is
+placed on the floating point stack<br>
+</strong></font>dtof, &quot;<font color="#0080FF">d&gt;f</font>&quot; ( d --- ) f:( --- f
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; the double number on the forth stack is
+converted to a float on the floating point stack<br>
+</strong></font>ftod, &quot;<font color="#0080FF">f&gt;d</font>&quot; f:( f --- ) ( --- d
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; The number on the floating point stack is
+converted to a double number on the forth stack<br>
+</strong></font>fzeroless, &quot;<font color="#0080FF">f0&lt;</font>&quot; f:( f --- ) (
+--- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true is placed on the forth stack if f is
+less than 0.0<br>
+</strong></font>fzeroequal, &quot;<font color="#0080FF">f0=</font>&quot; f:( f --- ) ( ---
+t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true is placed on the forth stack if f is
+equal to 0.0<br>
+</strong></font>fless, &quot;<font color="#0080FF">f&lt;</font>&quot; f:( f1 f2 --- ) (
+--- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true is placed on the forth stack if f1
+is less than f2<br>
+</strong></font>flessequal, &quot;<font color="#0080FF">f&lt;=</font>&quot; f:( f1 f2 ---
+) ( --- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true is placed on the forth stack if f1is
+less than or equals f2<br>
+</strong></font>fgreater, &quot;<font color="#0080FF">f&gt;</font>&quot; f:( f1 f2 --- ) (
+--- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true is placed on the forth stack if f1
+is greater than f2<br>
+</strong></font>fgreaterequal, &quot;<font color="#0080FF">f&gt;=</font>&quot; f:( f1 f2
+--- ) ( --- t | f )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; true is placed on the forth stack if f1
+is greater or equals f2<br>
+</strong></font>fdrop, &quot;<font color="#0080FF">fdrop</font>&quot; f:( f --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; drop for the floating point stack<br>
+</strong></font>fdup, &quot;<font color="#0080FF">fdup</font>&quot; f:( f1 --- f1 f1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; dup for the floating point stack<br>
+</strong></font>fnip, &quot;<font color="#0080FF">fnip</font>&quot; f:( f1 f2 --- f2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; nip for the floating point stack<br>
+</strong></font>froll, &quot;<font color="#0080FF">froll</font>&quot; f:( f1 f2 --- f1 f2
+f1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; roll for the floating point stack<br>
+</strong></font>fpick, &quot;<font color="#0080FF">fpick</font>&quot; ( f1 f2 ... --- f1
+f2 ... f1 ) ( u --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; pickl for the floating point stack<br>
+</strong></font>fover, &quot;<font color="#0080FF">fover</font>&quot; ( f1 f2 f3 ... ---
+f2 f3 ... f1 ) ( u --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; over for the floating point stack<br>
+</strong></font>frot, &quot;<font color="#0080FF"><strong>frot</strong></font>&quot; f:(
+f1 f2 f3 --- f2 f3 f1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; rot for the floating point stack<br>
+</strong></font>freverserot, &quot;<font color="#0080FF"><strong>-frot</strong></font>&quot;
+f:( f1 f2 f3 --- f3 f1 f2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; -rot for the floating point stack<br>
+</strong></font>ftuck, &quot;<font color="#0080FF"><strong>ftuck</strong></font>&quot; f:(
+f1 f2 --- f2 f1 f2 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; tuck for the floating point stack<br>
+</strong></font>fpower, &quot;<font color="#0080FF"><strong>f**</strong></font>&quot; f:(
+f1 f2 --- f3 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; f1 is raised to the power f2 and the
+result f3 is placed on the floating point stack<br>
+</strong></font>fabs, &quot;<font color="#0080FF">fabs</font>&quot; f:( f1 --- abs[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; takes the absolute value of f1<br>
+</strong></font>facos, &quot;<font color="#0080FF">facos</font>&quot; f:( f1 --- acos[f1]
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the principle radian angle whose
+cosine is f1<br>
+</strong></font>fcosh, &quot;<font color="#0080FF">fcosh</font>&quot; f:( f1 --- cosh[f1]
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the hyperbolic cosine of f1<br>
+</strong></font>fcos, &quot;<font color="#0080FF">fcos</font>&quot; f:( f1 --- cos[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the cosine of f1<br>
+</strong></font>fasin, &quot;<font color="#0080FF">fasin</font>&quot; f:( f1 --- asin[f1]
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the principle radian angle whose
+sine is f1<br>
+</strong></font>fsin, &quot;<font color="#0080FF">fsin</font>&quot; f:( f1 --- sin[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the sine of f1<br>
+</strong></font>fsincos, &quot;<font color="#0080FF">fsincos</font>&quot; f:( f1 ---
+cos[f1] sin[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the cosine and the sine of f1<br>
+</strong></font>fsinh, &quot;<font color="#0080FF">fsinh</font>&quot; f:( f1 --- sinh[f1]
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the hyperbolic sine of f1<br>
+</strong></font>fatan, &quot;<font color="#0080FF">fatan</font>&quot; f:( f1 --- atan[f1]
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the tangent of f1<br>
+</strong></font>ftan, &quot;<font color="#0080FF">ftan</font>&quot; f:( f1 --- tan[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the tangent of f1<br>
+</strong></font>ftanh, &quot;<font color="#0080FF">ftanh</font>&quot; f:( f1 --- tanh[f1]
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the hypebolic tangent of f1<br>
+</strong></font>fatan2, &quot;<font color="#0080FF">fatan2</font>&quot; f:( f1 f2 ---
+atan2[f1, f2] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the radian angle whose tangent is
+f1/f2 <br>
+</strong></font>fexp, &quot;<font color="#0080FF">fexp</font>&quot; f:( f1 --- exp[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns e to the power f1<br>
+</strong></font>fln, &quot;<font color="#0080FF">fln</font>&quot; f:( f1 --- ln[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the natural logarithm of f1<br>
+</strong></font>flog, &quot;<font color="#0080FF">flog</font>&quot; f:( f1 --- log[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the logarithm base 10 of r1<br>
+</strong></font>sqrt, &quot;<font color="#0080FF">fsqrt</font>&quot; f:( f1 --- sqrt[f1] )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the square root of f1<br>
+</strong></font>fdot, &quot;<font color="#0080FF">f.</font>&quot; ( f --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; prints a floating point number<br>
+</strong></font>fmin, &quot;<font color="#0080FF">fmin</font>&quot; f:( f1 f2 --- f1 | f2
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the minimum of f1 and f2<br>
+</strong></font>fmax, &quot;<font color="#0080FF">fmax</font>&quot; f:( f1 f2 --- f1 | f2
+)<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the maximum of f1 and f2<br>
+</strong></font>fnegate, &quot;<font color="#0080FF">fnegate</font>&quot; f:( f1 --- -f1 )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; returns the negitive of f1<br>
+</strong></font><br>
+<u><strong>Forth class words ( see the explanation at the beginning of this file )<br>
+</strong></u><br>
+DashRightGreater, &quot;<font color="#0080FF">-&gt;</font>&quot;, ( &lt;method-name&gt;
+--- ) immediate <br>
+<font color="#0080FF">&nbsp;&nbsp;&nbsp; Used as instance-address method-name<br>
+</font>DashDot, &quot;<font color="#0080FF">-:</font>&quot;, immediate (
+&lt;method-name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used as instance-name -: method-name<br>
+</strong></font>class, &quot;<font color="#0080FF">class:</font>&quot;, immediate (
+&lt;name&gt; --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used as class: class-name<br>
+</strong></font>This, &quot;<font color="#0080FF">this</font>&quot; ( --- addr )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to get the address of the current
+class<br>
+</strong></font>MethodSemicolon, &quot;<font color="#0080FF">m;</font>&quot;, (
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Ends a method definition<br>
+</strong></font>MethodColon, &quot;<font color="#0080FF">m:</font>&quot;, ( --- )
+immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Begins a method definition<br>
+</strong></font>EnclosedByte, &quot;<font color="#0080FF">[byte]</font>&quot;, (
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define a byte class member<br>
+</strong></font>EnclosedBytes, &quot;<font color="#0080FF">[bytes]&quot;</font>, ( n
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define 'n' bytes as a class
+member<br>
+</strong></font>EnclosedWord, &quot;<font color="#0080FF">[word]</font>&quot;, (
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define a word class member<br>
+</strong></font>EnclosedWords, &quot;<font color="#0080FF">[words]</font>&quot;, ( n
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define 'n' words as a class
+member<br>
+</strong></font>EnclosedDWord, &quot;<font color="#0080FF">[dword]</font>&quot;, (
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define a double word class
+element as [dword] name<br>
+</strong></font>EnclosedDWords, &quot;<font color="#0080FF">[dwords]</font>&quot;,
+immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define 'n' double words as a
+class member<br>
+</strong></font>EnclosedPointer, &quot;<font color="#0080FF">[pointer]</font>&quot;, (
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define a pointer class member<br>
+</strong></font>EnclosedPointers, &quot;<font color="#0080FF">[pointers]</font>&quot;, ( n
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define 'n' pointers as a class
+member<br>
+</strong></font>EnclosedArrays, &quot;<font color="#0080FF">[arrays]</font>&quot;, ( n
+&lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>Used to byte define arrays of size n<br>
+</strong></font>EnclosedClass, &quot;<font color="#0080FF">[class]&quot;</font>, (
+&lt;name&gt; --- ) immediate<br>
+<strong><font color="#8000FF">&nbsp;&nbsp;&nbsp; Used to define a class instance as a
+class member<br>
+</font></strong>EnclosedClasses, &quot;[classes]&quot;, ( n &lt;name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to define 'n' class instances as a
+class member<br>
+</strong></font>endclass, &quot;class;&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to end a class definition<br>
+</strong></font>publiccolon, &quot;public:&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to declare following class members
+public<br>
+</strong></font>privatecolon, &quot;private:&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to declare following class members
+private<br>
+</strong></font>protectedcolon, &quot;protected:&quot;, immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to declare following class members
+potected<br>
+</strong></font>DecompileClass, &quot;(decompile)-class&quot;, ( &lt;class-name&gt; -- )
+immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to decompile a class for debuging<br>
+</strong></font>ColonEqual, &quot;<font color="#0080FF">:=</font>&quot;, (
+&lt;class-name&gt; --- ) immediate<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to inherit from another class <br>
+</strong></font>&nbsp;&nbsp;&nbsp; example: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FromToot public: <font color="#0080FF">:=</font>
+Toot<br>
+ColonColon &quot;<font color="#0080FF">::</font>&quot; ( --- )<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Used to specify methods from an inherited
+class instance<br>
+</strong></font>&nbsp;&nbsp;&nbsp; example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hoomw<font color="#0080FF">::</font>goomb<font color="#0080FF"> -: </font>Anw!<br>
+NewClass, &quot;<font color="#0080FF">new</font>&quot;<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Creates a new instance of a class<br>
+</strong></font>DeleteClass, &quot;<font color="#0080FF">delete</font>&quot;<br>
+<font color="#8000FF"><strong>&nbsp;&nbsp;&nbsp; Deletes a class instance from memory<br>
+</strong></font><br>
+<strong><big>-----------------------c++ classes in the code
+-----------------------------------------<br>
+</big></strong><img src="classd.jpg" alt="classd.jpg (54011 bytes)" WIDTH="944" HEIGHT="592"><br>
+<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="book antiqua, times new roman, times">
+
+<!--msthemeseparator--><p align="center"><img src="_themes/expeditn/exphorsd.gif" width="300" height="10"></p>
+
+<h5><!--mstheme--><font color="#660033">[_Zen_Soft]&nbsp; is a trademark of [_Zen_Soft]. All other products mentioned are
+registered trademarks or trademarks of their respective companies.<br>
+<br>
+Questions or problems regarding this web site should be directed to
+[scuddersaul@earthlink.com].<br>
+Copyright © 2000[_Zen_Soft]. All rights reserved.<br>
+Last modified: Saturday July 08, 2000.<!--mstheme--></font></h5>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

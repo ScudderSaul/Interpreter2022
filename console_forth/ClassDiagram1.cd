@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" MajorVersion="1" MinorVersion="1" xmlns="http://www.microsoft.com/VisualStudio/EnterpriseTools/ClassDesigner/V1.1/DiagramSchema.xsd">
+  <View FilterFieldProperty="false" LastOpened="true" Name="Main">
+    <AbsoluteBounds X="0" Y="0" Height="11.95" Width="14.5" />
+    <Font Name="Tahoma" Size="0.1145833358168602" />
+    <Class Collapsed="false">
+      <AbsoluteBounds X="0.75" Y="0.75" Height="2.1509067816535632" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>ErrorData</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAAAAAAAAQAAAAEAAAQAAAAAAAAAIAAAgCAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="2.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Errors</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>BBxIGBQAIAAQFQAAAA8TAwREAgAwEgAAIAABhcElAAE=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>Errors::ErrorIDS</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="4.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Vocabulary</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>CAAAAAAAAAAAABAAAACAAQQAAAAMAAAAAAAAAAAAAgA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="0.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Dictonary</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAYCgABAAAAAAAQAAAAAAQCAgAQICEACECEUAAUABAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="2.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>RSData</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAAAAAAAAAAAAAAEgAQAAAAAgAAAAAAECCAAAhAg=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="4.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>STLVect</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AQMIEEAAAAEAgUAAAAIAAQACAAAIEAAAAAAAAABAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="6" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>STLVectIterator</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAAAAAAAAAQAAAAAAAQAAAgAAAAAAAAAAAAAAAgA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="6" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>NamedSTLVect</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAEAAgAAAgAAAAAAAAQAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="7.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>STLMap</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAIIAEAAAAAAgEAAAAIAAQAAAAAIEAAAAAgAAABAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="8.75" Y="0.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>STLMapIterator</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAAAAAAAAAQAAAAAAAQAAAgAAAAAAAAAAAAAAAgA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="8.75" Y="2.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>NamedSTLMap</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAEAAAAAAgAAAAAAAAQAAAAAIAAAAAAAAAAAAAAE=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="7.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>MemInstDat</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAACAgIKE4AgAAAAAAgAQAgBAAIhAAAAQAhQAAAQEA=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>MemInstDat::MemType</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="8.75" Y="4.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>MemoryMung</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAgAAJAAAEAAAAABAARAQAACAAAAAAAAIAgAAAAAQA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="8.75" Y="6" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>InterpreterData</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>8eP207MaoRKBzEoQFs9IE1qNU48AAc7Ilk2ixUQFaeA=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>InterpreterData::CompFlag</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="8.75" Y="7.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Primitives</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>zP+vjv/z69+m31//dOudO2t+y1d/6Xc6z/vD97+rit8=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="9.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Element</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AgQAgAEkgEACDCSCAAAgAQAAAIABEABAAQIQAJAAgIE=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>Element::elementtypes</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="9.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Word</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAKgAAABAAABEAQAAAAAAQUAAAAEEAgoCACJAAlAAAQ=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>Word::exerrors</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="8.75" Y="9.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>ClassData</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AACEQQABQAyAmAAAgIkICQwAEAAMQBgEAAEAQEBEwCQ=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>ClassData::data_types</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="11.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>ClassMethod</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAKkQIABAAgBEiQAAAkAAQUAEAAkEAgoCAGJQAlEQCQ=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>ClassMethod::CompFlag</FullName>
+        </TypeIdentifier>
+      </NestedType>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>ClassMethod::exerrors</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="12.75" Y="0.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>ClassDescription</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>EAVoIEDVEIAD0AAVYAiADYwAAICGAB3gEACAUIBEHgw=</HashCode>
+      </TypeIdentifier>
+      <NestedType xsi:type="EnumShapeProxy" Collapsed="true">
+        <TypeIdentifier>
+          <FullName>ClassDescription::DescriptionFlags</FullName>
+        </TypeIdentifier>
+      </NestedType>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="12.75" Y="2.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>ClassDescriptions</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAAAAEQCACAAAAAAAgAAQAAAAAIAAAAAABAAAAgAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="11.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>ParserData</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>IIEAAAQYAAgAAAAACggAEAACBAACGAAAAABAEBAAggA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="12.75" Y="4.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Parser</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>AAAQABAYAAgEAAACAQAAQSBgIIQAAACAAAACAAAApAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="12.75" Y="6" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>Language</FullName>
+        <FileName>k:\CodeNT\misc_tool\Interpreter\codeelement.h</FileName>
+        <HashCode>RAAgAAAAAAABAAAoBMAAASAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+  </View>
+</Diagram>
