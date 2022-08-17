@@ -1,4 +1,4 @@
-A versiopn of Forth written durring 1999-2022 by Saul Scudder. I have modifed removed outdated use restrictions.
+A versiopn of Forth written durring 1999-2022 by Saul Scudder. I have removed outdated use restrictions.
 
 
 The primary c++ source is in codeelement.cpp and codeelement.h
