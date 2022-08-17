@@ -8,18 +8,6 @@
 //#define WINVER 0x0602 // _WIN32_WINNT_WIN8 
 #endif
 
-//+---------------------------------------------------------------------------------------+
-//This file codeelement.h is copyright 1999 2007 by Saul Scudder
-//It is distributed for non-profit use as freeware and no warranty is given with the use of
-//this source for any purpose whatsoever.
-//This copyright notice is to remain unmodified in the file
-//A license for commercial use of the _Zen_Soft programmers tools may be obtained by sending
-//a check for $10.00 to 
-//_Zen_Soft c/o 
-//Saul Scudder
-//358 E Whitton Ave.
-//Phoenix AZ 85012
-//+---------------------------------------------------------------------------------------+
 
 
 
